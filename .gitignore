@@ -1,0 +1,90 @@
+assets-raw/
+
+# full screenshot set incl. images held back for privacy (see docs/screenshots-index.md)
+portfolio-assets/
+
+# personal / internal
+docs/resume.pdf
+docs/REPORT.md
+
+# discarded design draft
+frontend/studio.html
+
+# local build helpers
+_files.json
+_used.txt
+_unused.txt
+
+# raw or duplicate media the page does not use (web copies are committed)
+/frontend/media/03886f1e-db9e-4b03-9859-a76d1a98217c.jpg
+/frontend/media/2e8d28dc-3060-4bcf-9106-c537a8f170d3.jpg
+/frontend/media/847744586_1384751563433910_4593588952007907380_n.jpg
+/frontend/media/ARVR.jpg
+/frontend/media/checkpoint-wireframe.png
+/frontend/media/checkpoint-wireframe.webp
+/frontend/media/depa ระดับภาค.jpg
+/frontend/media/depa เกียรติบัตร ระดับประเทศ.jpg
+/frontend/media/depa.jpg
+/frontend/media/depaภาพรับHONORABLE MENTION-VOCATIONAL SCHOOL.jpg
+/frontend/media/depaภาพรับรางวัล.jpg
+/frontend/media/depaภาพร่วมทีม.jpg
+/frontend/media/depaระดับประเทศ.jpg
+/frontend/media/depaระดับภาค.jpg
+/frontend/media/gigabike-catalog.png
+/frontend/media/gigabike-catalog.webp
+/frontend/media/gigabike-home.png
+/frontend/media/gigabike-home.webp
+/frontend/media/gigabike-old-products.png
+/frontend/media/gigabike-old-products.webp
+/frontend/media/gigabike-old.png
+/frontend/media/gigabike-old.webp
+/frontend/media/gigabike-product.png
+/frontend/media/gigabike-product.webp
+/frontend/media/gigabike-search.png
+/frontend/media/gigabike-search.webp
+/frontend/media/gigabike-track.png
+/frontend/media/gigabike-track.webp
+/frontend/media/graph-1.png
+/frontend/media/graph-1.webp
+/frontend/media/graph-2.png
+/frontend/media/graph-2.webp
+/frontend/media/logo depa.jpg
+/frontend/media/logo อวท.jpg
+/frontend/media/logo_แผนกITวิทยาลัยเทคนิคสัตหีบ.jpg
+/frontend/media/logoวิทยาลัยเทคนิคสัตหีบ.jpg
+/frontend/media/LONGRIAN-AI-Workspace/existing/login.webp
+/frontend/media/miedkeep4.jpg
+/frontend/media/milkmood-story.png
+/frontend/media/milkmood-wide.png
+/frontend/media/milkmoode video.mp4
+/frontend/media/mindkeep-dashboard.png
+/frontend/media/mindkeep-dashboard.webp
+/frontend/media/mindkeep-docs.png
+/frontend/media/mindkeep-docs.webp
+/frontend/media/mindkeep-login.png
+/frontend/media/mindkeep-login.webp
+/frontend/media/mindkeep-pdf.png
+/frontend/media/mindkeep-v1-screen-2.webp
+/frontend/media/mindkeep2.jpg
+/frontend/media/minekeep1.jpg
+/frontend/media/poster mindkeep.jpg
+/frontend/media/การแข่งdepa.jpg
+/frontend/media/ชื่อทีมARVR.jpg
+/frontend/media/ภาพตอนฝึกงาน.jpg
+/frontend/media/ภาพตัวผมเอง.png
+/frontend/media/ภาพตัวผมเอง.webp
+/frontend/media/ภาพระหว่างปฏิบัติงานอวท.jpg
+/frontend/media/ภาพระหว่างปฏิบัติงานอวท2.jpg
+/frontend/media/ภาพระหว่างปฏิบัติงานอวท3.jpg
+/frontend/media/ภาพระหว่างปฏิบัติงานอวท4.jpg
+/frontend/media/ภาพระหว่างปฏิบัติงานอวท5.jpg
+/frontend/media/ภาพระหว่างปฏิบัติงานอวท6.jpg
+/frontend/media/ภาพระหว่างฝึกงาน.png
+/frontend/media/ภาพระหว่างฝึกงาน.webp
+/frontend/media/รางวัลแข่งARVR.jpg
+/frontend/media/รูปเกียรติบัตรการแข่งขัน AR-VR.jpg
+/frontend/media/เกียรติบัตรทีม.jpg
+/frontend/media/โปสเตอร์งานแข่ง.jpg
+
+# internal working notes (personal email, local paths)
+docs/HANDOFF.md
