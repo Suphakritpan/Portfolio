@@ -1,0 +1,742 @@
+<title>Portfolio ศุภกฤต</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=IBM+Plex+Sans+Thai:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Concept: light = drafting paper, dark = blueprint sheet. Title block, zone strip, sheet numbers and DWG fields come from real drawing conventions. */
+:root{
+  --paper:#f2f5f8; --sheet:#ffffff; --ink:#13233b; --ink-2:#51627a; --rule:#c8d1dd; --grid:#e3e8ee; --grid-2:#d3dbe5;
+  --accent:#c2410c; --accent-soft:#fbe6d9; --blue:#1d4f91; --blue-soft:#e3ecf8; --shade:rgba(12,22,38,.62);
+  --display:"Chakra Petch","IBM Plex Sans Thai",system-ui,sans-serif;
+  --body:"IBM Plex Sans Thai","Noto Sans Thai",system-ui,sans-serif;
+  --mono:"IBM Plex Mono","IBM Plex Sans Thai",ui-monospace,Menlo,monospace;
+  --ease:cubic-bezier(.2,.7,.2,1);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --paper:#0b2545; --sheet:#0f2d54; --ink:#e3eefb; --ink-2:#a3bcdb; --rule:#2d5283; --grid:#103160; --grid-2:#163b70;
+  --accent:#ff9e6e; --accent-soft:rgba(255,158,110,.14); --blue:#8fc6ff; --blue-soft:rgba(143,198,255,.13); --shade:rgba(3,12,26,.72); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --paper:#0b2545; --sheet:#0f2d54; --ink:#e3eefb; --ink-2:#a3bcdb; --rule:#2d5283; --grid:#103160; --grid-2:#163b70;
+  --accent:#ff9e6e; --accent-soft:rgba(255,158,110,.14); --blue:#8fc6ff; --blue-soft:rgba(143,198,255,.13); --shade:rgba(3,12,26,.72); color-scheme:dark}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+html:has(dialog[open]){overflow:hidden}
+body{background-color:var(--paper);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.75;
+  background-image:linear-gradient(var(--grid-2) 1px,transparent 1px),linear-gradient(90deg,var(--grid-2) 1px,transparent 1px),
+    linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:120px 120px,120px 120px,24px 24px,24px 24px}
+h1,h2,h3{font-family:var(--display);line-height:1.25;text-wrap:balance;margin:0}
+p{margin:0}
+a{color:var(--blue)}
+button{font-family:inherit}
+button:focus-visible,a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.i{width:1.15em;height:1.15em;stroke:currentColor;fill:none;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.label{font-family:var(--mono);font-size:13px;letter-spacing:.04em;text-transform:uppercase;color:var(--ink-2)}
+.tags{display:flex;flex-wrap:wrap;gap:6px}
+.tag{font:500 13.5px/1.6 var(--mono);border:1px solid var(--rule);padding:1px 8px;border-radius:2px;color:var(--ink)}
+.status{font:500 13px/1.6 var(--mono);padding:1px 8px;border-radius:2px;white-space:nowrap}
+.s-live{background:var(--accent-soft);color:var(--accent)}
+.s-plan{background:var(--blue-soft);color:var(--blue)}
+.pno{font:500 13px var(--mono);color:var(--ink-2);letter-spacing:.03em}
+.ibtn{display:inline-grid;place-items:center;width:38px;height:38px;border:1px solid var(--rule);background:var(--sheet);color:var(--ink);border-radius:2px;cursor:pointer;flex:none}
+.ibtn:hover{border-color:var(--ink)}
+.ibtn:disabled{opacity:.4;cursor:default}
+
+.wrap{max-width:1120px;margin:0 auto;padding-block:28px 56px;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.frame{position:relative;border:1.5px solid var(--ink);outline:1px solid var(--ink);outline-offset:6px;margin:7px;
+  padding:0 26px 26px;display:flex;flex-direction:column;gap:26px}
+.zones{display:grid;grid-template-columns:repeat(8,1fr);margin:0 -26px;border-bottom:1px solid var(--rule);font:500 10px/22px var(--mono);color:var(--ink-2);text-align:center}
+.zones span+span{border-left:1px solid var(--rule)}
+
+/* Title block */
+.tb{background:var(--sheet);border:1.5px solid var(--ink);display:grid;grid-template-columns:1.55fr 1fr}
+.tb-main{padding:30px;display:flex;flex-direction:column;gap:16px;border-right:1.5px solid var(--ink);min-width:0}
+.eyebrow{display:flex;align-items:center;gap:8px}
+.eyebrow .i{color:var(--accent)}
+.tb h1{font-size:clamp(34px,6.2vw,56px);font-weight:700;letter-spacing:-.01em}
+.dim{position:relative;height:16px;border-inline:1px solid var(--ink-2);max-width:460px}
+.dim::before{content:"";position:absolute;left:0;right:0;top:50%;height:1px;background:var(--ink-2);transform-origin:left}
+.dim span{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);background:var(--sheet);padding:0 10px;font:500 12px var(--mono);letter-spacing:.1em;color:var(--ink-2);white-space:nowrap}
+.role{font-family:var(--display);font-size:21px;font-weight:600;color:var(--accent)}
+.about{max-width:62ch;color:var(--ink-2);font-size:17px}
+.cta{display:flex;flex-wrap:wrap;gap:10px;margin-top:4px}
+.btn{display:inline-flex;align-items:center;gap:8px;font:500 14px var(--body);padding:9px 16px;border-radius:2px;cursor:pointer;text-decoration:none;border:1.5px solid var(--ink)}
+.btn-primary{background:var(--ink);color:var(--sheet)}
+.btn-ghost{background:transparent;color:var(--ink)}
+.btn .i{transition:transform .25s var(--ease)}
+.btn-primary:hover .i{transform:translateY(3px)}
+.btn-ghost:hover .i{transform:translate(2px,-2px)}
+.tb-side{display:flex;flex-direction:column;min-width:0}
+.cell{padding:13px 18px;border-bottom:1px solid var(--rule);display:flex;gap:12px;align-items:flex-start;min-width:0}
+.cell>.i{margin-top:3px;color:var(--ink-2)}
+.cell-txt{display:flex;flex-direction:column;gap:1px;min-width:0;flex:1}
+.val{font-family:var(--mono);font-size:15px;overflow-wrap:anywhere}
+.copy{display:inline-flex;align-items:center;gap:6px;font:500 13px var(--mono);color:var(--blue);background:var(--blue-soft);border:1px solid transparent;border-radius:2px;padding:4px 9px;cursor:pointer;flex:none;align-self:center}
+.copy:hover{border-color:var(--blue)}
+.copy.ok{color:var(--accent);background:var(--accent-soft)}
+.copy.ok .i{animation:pop .35s var(--ease)}
+.dwg{display:grid;grid-template-columns:repeat(4,1fr);margin-top:auto;border-top:1.5px solid var(--ink)}
+.dwg div{padding:8px 12px;display:flex;flex-direction:column;min-width:0}
+.dwg div+div{border-left:1px solid var(--rule)}
+.dwg b{font:500 14px var(--mono)}
+.dwg .label{font-size:11px}
+
+/* Sheet nav */
+.snav{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--sheet);border:1px solid var(--ink);overflow-x:auto;scrollbar-width:none}
+.snav ol{list-style:none;margin:0;padding:0 6px;display:flex;min-width:max-content}
+.snav a{display:flex;align-items:center;gap:7px;padding:10px 14px;color:var(--ink-2);text-decoration:none;font:500 15px var(--body);position:relative}
+.snav a b{font:500 12px var(--mono);color:var(--ink-2)}
+.snav a::after{content:"";position:absolute;left:14px;right:14px;bottom:0;height:2px;background:var(--accent);transform:scaleX(0);transform-origin:left;transition:transform .3s var(--ease)}
+.snav a:hover,.snav a.on{color:var(--ink)}
+.snav a.on::after{transform:scaleX(1)}
+
+/* Sheets */
+.sheet{background:var(--sheet);border:1px solid var(--rule);scroll-margin-top:64px}
+.sh{position:relative;display:flex;align-items:center;gap:12px;padding:14px 22px;border-bottom:1px solid var(--rule)}
+.sh::after{content:"";position:absolute;left:0;bottom:-1px;width:88px;height:2px;background:var(--accent);transform-origin:left}
+.sh h2{font-size:23px;font-weight:600}
+.sh .label{margin-left:auto}
+.sno{font:500 13px var(--mono);color:var(--accent);border:1px solid var(--accent);padding:0 6px;border-radius:2px}
+.sb{padding:22px}
+
+/* Project cards */
+.cards{display:grid;grid-template-columns:repeat(2,1fr);gap:22px;padding:22px}
+.card{position:relative;display:flex;flex-direction:column;background:var(--sheet);border:1px solid var(--rule);
+  transition:border-color .25s,transform .3s var(--ease),box-shadow .3s var(--ease)}
+.card:hover,.card:has(.card-link:focus-visible){border-color:var(--ink);transform:translate(-3px,-3px);box-shadow:4px 4px 0 var(--ink)}
+.card:has(.card-link:focus-visible){outline:2px solid var(--accent);outline-offset:4px}
+.cover{position:relative;aspect-ratio:16/10;overflow:hidden;border-bottom:1px solid var(--rule);background:var(--paper)}
+.cover img,.cover .ill{width:100%;height:100%;display:block;object-fit:cover;object-position:top;transition:transform .7s var(--ease)}
+.cover .ill{padding:14px}
+.card:hover .cover img,.card:hover .cover .ill{transform:scale(1.045)}
+.cover::after{content:"";position:absolute;inset:14px;pointer-events:none;opacity:0;transition:inset .35s var(--ease),opacity .35s;
+  background:
+    linear-gradient(var(--accent),var(--accent)) left top/16px 2px no-repeat,linear-gradient(var(--accent),var(--accent)) left top/2px 16px no-repeat,
+    linear-gradient(var(--accent),var(--accent)) right top/16px 2px no-repeat,linear-gradient(var(--accent),var(--accent)) right top/2px 16px no-repeat,
+    linear-gradient(var(--accent),var(--accent)) left bottom/16px 2px no-repeat,linear-gradient(var(--accent),var(--accent)) left bottom/2px 16px no-repeat,
+    linear-gradient(var(--accent),var(--accent)) right bottom/16px 2px no-repeat,linear-gradient(var(--accent),var(--accent)) right bottom/2px 16px no-repeat}
+.card:hover .cover::after{opacity:1;inset:8px}
+.mcount{position:absolute;right:10px;bottom:10px;display:inline-flex;align-items:center;gap:5px;font:500 12px var(--mono);background:var(--sheet);color:var(--ink);border:1px solid var(--rule);padding:2px 8px;border-radius:2px}
+.card-body{padding:18px 20px 20px;display:flex;flex-direction:column;gap:9px;flex:1}
+.meta{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.card h3{font-size:22px;font-weight:600}
+.card-link{all:unset;cursor:pointer}
+.card-link::after{content:"";position:absolute;inset:0;z-index:1}
+.sub{font-family:var(--display);font-weight:500;color:var(--ink-2);margin-top:-6px}
+.sum{font-size:16px;color:var(--ink-2)}
+.more{margin-top:auto;padding-top:6px;display:inline-flex;align-items:center;gap:6px;font:500 14px var(--mono);color:var(--accent)}
+.more .i{transition:transform .3s var(--ease)}
+.card:hover .more .i{transform:translateX(5px)}
+
+/* Illustrations */
+.ill{width:100%;height:auto;display:block}
+.ill text{font-family:var(--mono);fill:var(--ink-2)}
+.ill .ln{fill:none;stroke:var(--rule)}
+.ill .ln2{fill:none;stroke:var(--ink-2)}
+.ill .ga{fill:var(--blue-soft);stroke:var(--blue)}
+.ill .gb{fill:var(--accent-soft);stroke:var(--accent)}
+.ill .gd{fill:var(--sheet);stroke:var(--ink-2);stroke-dasharray:4 3}
+.ill .gs{fill:var(--sheet);stroke:var(--rule)}
+.ill .ti{fill:var(--ink)} .ill .ta{fill:var(--accent)} .ill .tb2{fill:var(--blue)}
+
+/* Gallery */
+.gal{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.gal figure{margin:0;display:flex;flex-direction:column;gap:8px;min-width:0}
+.gal figcaption{font-size:15px;color:var(--ink-2)}
+.zoom{position:relative;display:block;width:100%;padding:0;border:1px solid var(--rule);background:var(--paper);cursor:zoom-in;line-height:0;overflow:hidden}
+.zoom img{width:100%;aspect-ratio:4/3;object-fit:cover;object-position:top;display:block;transition:transform .6s var(--ease)}
+.zoom:hover img{transform:scale(1.04)}
+.zoom .hint{position:absolute;right:8px;top:8px;display:grid;place-items:center;width:30px;height:30px;background:var(--sheet);color:var(--ink);border:1px solid var(--rule);opacity:0;transform:scale(.8);transition:opacity .25s,transform .25s var(--ease)}
+.zoom:hover .hint,.zoom:focus-visible .hint{opacity:1;transform:none}
+
+/* Awards */
+.awards{display:grid;grid-template-columns:repeat(3,1fr)}
+.award{padding:24px 22px;display:flex;flex-direction:column;gap:8px}
+.award+.award{border-left:1px solid var(--rule)}
+.award>.i{width:26px;height:26px;color:var(--accent)}
+.rank{display:flex;align-items:baseline;gap:8px;font-family:var(--display)}
+.rank b{font-size:44px;font-weight:700;line-height:1;color:var(--accent);font-variant-numeric:tabular-nums}
+.rank span{font-size:16px;font-weight:600}
+.award h3{font-size:18px;font-weight:600}
+.award p{font-size:15px;color:var(--ink-2)}
+
+/* Experience timeline */
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:26px}
+.tl{position:relative;display:flex;flex-direction:column;gap:22px;padding-left:40px}
+.tl::before{content:"";position:absolute;left:13px;top:8px;bottom:8px;width:1px;background:var(--rule)}
+.tli{position:relative;display:flex;flex-direction:column;gap:3px}
+.node{position:absolute;left:-40px;top:2px;width:27px;height:27px;display:grid;place-items:center;background:var(--sheet);border:1px solid var(--ink);color:var(--ink)}
+.node .i{width:14px;height:14px}
+.tli .label{font-size:13px}
+.tli h3{font-size:18px;font-weight:600}
+.tli ul{margin:4px 0 0;padding-left:18px;color:var(--ink-2);font-size:16px}
+
+/* Skills */
+.skills{display:grid;grid-template-columns:repeat(2,1fr);gap:22px}
+.skill{display:flex;flex-direction:column;gap:9px}
+.skill h3{display:flex;align-items:center;gap:8px;font:600 16px var(--display)}
+.skill h3 .i{color:var(--accent)}
+
+footer{display:grid;grid-template-columns:repeat(4,auto) 1fr;border:1.5px solid var(--ink);background:var(--sheet)}
+footer>div{padding:8px 14px;display:flex;flex-direction:column;min-width:0}
+footer>div+div{border-left:1px solid var(--rule)}
+footer b{font:500 14px var(--mono)}
+footer .label{font-size:11px}
+.totop{justify-self:end;align-self:center;margin-right:8px}
+
+/* Project detail */
+.detail{width:min(1180px,calc(100vw - 32px));height:calc(100dvh - 32px);max-width:none;max-height:none;margin:auto;padding:0;
+  border:1.5px solid var(--ink);background:var(--sheet);color:var(--ink);overflow:hidden}
+.detail[open]{display:flex;flex-direction:column;animation:dIn .45s var(--ease)}
+.detail::backdrop{background:var(--shade);backdrop-filter:blur(3px)}
+.dh{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 12px 10px 22px;border-bottom:1px solid var(--rule);flex:none}
+.dh-id{display:flex;align-items:center;gap:10px;min-width:0}
+.dh-nav{display:flex;align-items:center;gap:6px}
+.dcount{font:500 13px var(--mono);color:var(--ink-2);padding:0 6px;font-variant-numeric:tabular-nums}
+.dscroll{overflow:auto;flex:1;overscroll-behavior:contain;padding:28px 28px 0}
+.dtitle{display:flex;flex-direction:column;gap:8px;margin-bottom:24px;max-width:780px}
+.dtitle h2{font-size:clamp(28px,4vw,40px);font-weight:700}
+.dtitle .sub{margin:0;font-size:18px}
+.dtitle .sum{font-size:17px;max-width:65ch}
+.dgrid{display:grid;grid-template-columns:1.3fr 1fr;gap:34px;align-items:start}
+.dmedia{position:sticky;top:0;display:flex;flex-direction:column;gap:10px;min-width:0}
+.viewer{position:relative;border:1px solid var(--rule);background:var(--paper)}
+.vstage{aspect-ratio:16/10;display:grid;place-items:center;overflow:hidden}
+.vstage>*{animation:fadeIn .35s var(--ease)}
+.vmain{all:unset;display:block;width:100%;height:100%;cursor:zoom-in;position:relative}
+.vmain img{width:100%;height:100%;object-fit:contain;display:block}
+.vmain:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
+.vstage .ill{padding:16px}
+.vnav{position:absolute;top:50%;margin-top:-19px;z-index:1}
+.vprev{left:10px} .vnext{right:10px}
+.vcount{position:absolute;left:10px;top:10px;font:500 12px var(--mono);background:var(--sheet);border:1px solid var(--rule);padding:1px 8px;font-variant-numeric:tabular-nums}
+.vcap{font-size:15px;color:var(--ink-2);display:flex;gap:8px}
+.vcap b{font:500 13px var(--mono);color:var(--ink);white-space:nowrap;padding-top:2px}
+.thumbs{display:flex;gap:8px;overflow-x:auto;padding-bottom:4px}
+.thumb{flex:none;width:92px;padding:0;border:1px solid var(--rule);background:var(--paper);cursor:pointer;line-height:0;opacity:.7;transition:opacity .2s,border-color .2s}
+.thumb img{width:100%;aspect-ratio:16/10;object-fit:cover;object-position:top}
+.thumb:hover{opacity:1}
+.thumb.on{opacity:1;border-color:var(--accent);box-shadow:0 0 0 1px var(--accent)}
+.vid{display:flex;flex-direction:column;gap:8px;margin-top:8px}
+.vid .label{display:flex;align-items:center;gap:6px}
+.vid video{width:100%;max-width:100%;aspect-ratio:16/9;background:#000;border:1px solid var(--rule);display:block}
+.dspec{display:flex;flex-direction:column;min-width:0}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(104px,1fr));border:1px solid var(--rule);margin-bottom:8px}
+.stat{padding:12px 14px;display:flex;flex-direction:column;gap:2px}
+.stat+.stat{border-left:1px solid var(--rule)}
+.stat b{font:700 28px/1.1 var(--display);color:var(--accent);font-variant-numeric:tabular-nums}
+.stat span{font-size:14px;color:var(--ink-2)}
+.blk{display:grid;grid-template-columns:34px 1fr;gap:4px 12px;padding:16px 0;border-bottom:1px solid var(--rule)}
+.blk-ic{grid-row:span 2;width:34px;height:34px;display:grid;place-items:center;border:1px solid var(--rule);color:var(--accent)}
+.blk h3{font:600 15px var(--display);letter-spacing:.02em;text-transform:uppercase;color:var(--ink-2);align-self:center}
+.blk p,.blk ul{font-size:16.5px;line-height:1.75}
+.blk ul{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:8px}
+.blk li::marker{color:var(--accent)}
+.dlink{display:inline-flex;align-items:center;gap:6px;font:500 15px var(--mono);overflow-wrap:anywhere}
+.dfoot{display:grid;grid-template-columns:repeat(4,1fr);border-top:1.5px solid var(--ink);margin:30px -28px 0}
+.dfoot div{padding:8px 14px;display:flex;flex-direction:column;min-width:0}
+.dfoot div+div{border-left:1px solid var(--rule)}
+.dfoot b{font:500 14px var(--mono);overflow-wrap:anywhere}
+.dfoot .label{font-size:11px}
+.dscroll.anim .dtitle,.dscroll.anim .dmedia,.dscroll.anim .dspec>*{animation:rise .5s var(--ease) both}
+.dscroll.anim .dmedia{animation-delay:.06s}
+.dscroll.anim .dspec>*:nth-child(1){animation-delay:.1s}
+.dscroll.anim .dspec>*:nth-child(2){animation-delay:.15s}
+.dscroll.anim .dspec>*:nth-child(3){animation-delay:.2s}
+.dscroll.anim .dspec>*:nth-child(4){animation-delay:.25s}
+.dscroll.anim .dspec>*:nth-child(n+5){animation-delay:.3s}
+.dscroll[data-dir="next"].anim .dtitle{animation-name:fromR}
+.dscroll[data-dir="prev"].anim .dtitle{animation-name:fromL}
+
+/* Lightbox: single dark look on purpose, like a light table */
+.lb{width:100vw;height:100dvh;max-width:none;max-height:none;margin:0;padding:calc(14px + env(safe-area-inset-top,0px)) 16px calc(14px + env(safe-area-inset-bottom,0px));border:0;background:transparent;color:#e6eef8}
+.lb[open]{display:flex;flex-direction:column;gap:10px;animation:fadeIn .25s ease}
+.lb::backdrop{background:rgba(4,10,20,.94)}
+.lb-top{display:flex;justify-content:space-between;align-items:center;gap:12px;font:500 14px var(--mono)}
+.lb-stage{flex:1;min-height:0;display:flex;align-items:center;justify-content:center;gap:12px}
+.lb-stage img{max-width:100%;max-height:100%;object-fit:contain;display:block;min-width:0;animation:fadeIn .3s ease}
+.lb .ibtn{background:#13233b;color:#e6eef8;border-color:#2d4466}
+.lb .ibtn:hover{border-color:#e6eef8}
+.lb-cap{text-align:center;font-size:16px;color:#b9c8dc}
+
+/* Cursor coordinate readout */
+.coords{position:fixed;left:16px;bottom:calc(14px + env(safe-area-inset-bottom,0px));z-index:4;font:500 12px var(--mono);color:var(--ink-2);background:var(--sheet);border:1px solid var(--rule);padding:3px 9px;pointer-events:none;font-variant-numeric:tabular-nums}
+
+@keyframes rise{from{opacity:0;transform:translateY(14px)}}
+@keyframes fromR{from{opacity:0;transform:translateX(28px)}}
+@keyframes fromL{from{opacity:0;transform:translateX(-28px)}}
+@keyframes fadeIn{from{opacity:0}}
+@keyframes dIn{from{opacity:0;transform:translateY(26px) scale(.985)}}
+@keyframes wipe{from{clip-path:inset(0 100% 0 0)}to{clip-path:inset(0 0 0 0)}}
+@keyframes draw{from{transform:scaleX(0)}}
+@keyframes pop{50%{transform:scale(1.35)}}
+@keyframes lift{from{translate:0 36px}}
+
+/* Load sequence: the title block draws itself once */
+.boot{animation:rise .7s var(--ease) both;animation-delay:calc(var(--d,0) * 90ms)}
+.tb h1{animation:wipe 1s var(--ease) .15s both}
+.dim::before{animation:draw .9s var(--ease) .45s both}
+.zones span{animation:fadeIn .5s ease both;animation-delay:calc(var(--z) * 50ms)}
+
+@supports (animation-timeline:view()){
+  .reveal{animation:lift linear both;animation-timeline:view();animation-range:entry 0% entry 70%}
+  .sh::after{animation:draw linear both;animation-timeline:view();animation-range:entry 20% cover 30%}
+}
+
+@media (max-width:860px){
+  .frame{padding:0 14px 14px;margin:4px;outline-offset:3px;gap:20px}
+  .zones{display:none}
+  .frame>.tb{margin-top:14px}
+  .tb,.grid2,.dgrid{grid-template-columns:1fr}
+  .tb-main{border-right:0;border-bottom:1.5px solid var(--ink);padding:22px}
+  .cards{grid-template-columns:1fr;padding:16px;gap:18px}
+  .gal{grid-template-columns:1fr 1fr}
+  .awards{grid-template-columns:1fr}
+  .award+.award{border-left:0;border-top:1px solid var(--rule)}
+  .sh .label{display:none}
+  .sb{padding:18px 16px}
+  footer{grid-template-columns:1fr 1fr}
+  footer>div:nth-child(3){border-left:0}
+  footer>div:nth-child(n+3){border-top:1px solid var(--rule)}
+  .totop{grid-column:1/-1;justify-self:stretch;margin:0;width:auto;border:0;border-top:1px solid var(--rule)}
+  .detail{width:100%;height:100%;border:0;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+  .dh{padding:8px 8px 8px 16px}
+  .dscroll{padding:20px 16px 0}
+  .dmedia{position:static}
+  .dfoot{margin:26px -16px 0;grid-template-columns:1fr 1fr}
+  .dfoot div:nth-child(3){border-left:0}
+  .dfoot div:nth-child(n+3){border-top:1px solid var(--rule)}
+}
+@media (max-width:520px){
+  .skills,.gal{grid-template-columns:1fr}
+  .dwg{grid-template-columns:repeat(2,1fr)}
+  .dwg div:nth-child(3){border-left:0}
+  .dwg div:nth-child(n+3){border-top:1px solid var(--rule)}
+  .dcount{display:none}
+}
+@media (pointer:coarse){.coords{display:none}}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation:none!important;transition:none!important}
+}
+</style>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-phone" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></symbol>
+  <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20M2 12h20"/></symbol>
+  <symbol id="i-copy" viewBox="0 0 24 24"><rect width="14" height="14" x="8" y="8" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></symbol>
+  <symbol id="i-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></symbol>
+  <symbol id="i-arrow-down" viewBox="0 0 24 24"><path d="M12 5v14M19 12l-7 7-7-7"/></symbol>
+  <symbol id="i-arrow-up" viewBox="0 0 24 24"><path d="m5 12 7-7 7 7M12 19V5"/></symbol>
+  <symbol id="i-arrow-ur" viewBox="0 0 24 24"><path d="M7 7h10v10M7 17 17 7"/></symbol>
+  <symbol id="i-external" viewBox="0 0 24 24"><path d="M15 3h6v6M10 14 21 3M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></symbol>
+  <symbol id="i-chev-l" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></symbol>
+  <symbol id="i-chev-r" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></symbol>
+  <symbol id="i-award" viewBox="0 0 24 24"><circle cx="12" cy="8" r="6"/><path d="M15.48 12.89 17 22l-5-3-5 3 1.52-9.11"/></symbol>
+  <symbol id="i-briefcase" viewBox="0 0 24 24"><rect width="20" height="14" x="2" y="7" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></symbol>
+  <symbol id="i-grad" viewBox="0 0 24 24"><path d="M22 10 12 5 2 10l10 5 10-5Z"/><path d="M6 12v5c3 3 9 3 12 0v-5M22 10v6"/></symbol>
+  <symbol id="i-code" viewBox="0 0 24 24"><path d="m16 18 6-6-6-6M8 6l-6 6 6 6"/></symbol>
+  <symbol id="i-db" viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14a9 3 0 0 0 18 0V5"/><path d="M3 12a9 3 0 0 0 18 0"/></symbol>
+  <symbol id="i-wrench" viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></symbol>
+  <symbol id="i-git" viewBox="0 0 24 24"><path d="M6 3v12"/><circle cx="18" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M18 9a9 9 0 0 1-9 9"/></symbol>
+  <symbol id="i-spark" viewBox="0 0 24 24"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9z"/><path d="M19 3v4M17 5h4"/></symbol>
+  <symbol id="i-network" viewBox="0 0 24 24"><rect x="16" y="16" width="6" height="6" rx="1"/><rect x="2" y="16" width="6" height="6" rx="1"/><rect x="9" y="2" width="6" height="6" rx="1"/><path d="M5 16v-3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3M12 12V8"/></symbol>
+  <symbol id="i-layout" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M3 9h18M9 21V9"/></symbol>
+  <symbol id="i-play" viewBox="0 0 24 24"><path d="M7 4v16l13-8z"/></symbol>
+  <symbol id="i-image" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="3" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.09-3.09a2 2 0 0 0-2.82 0L6 21"/></symbol>
+  <symbol id="i-max" viewBox="0 0 24 24"><path d="M8 3H5a2 2 0 0 0-2 2v3M21 8V5a2 2 0 0 0-2-2h-3M3 16v3a2 2 0 0 0 2 2h3M16 21h3a2 2 0 0 0 2-2v-3"/></symbol>
+  <symbol id="i-alert" viewBox="0 0 24 24"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4M12 17h.01"/></symbol>
+  <symbol id="i-layers" viewBox="0 0 24 24"><path d="m12 2 10 5-10 5L2 7z"/><path d="m2 17 10 5 10-5M2 12l10 5 10-5"/></symbol>
+  <symbol id="i-ruler" viewBox="0 0 24 24"><path d="M21.3 15.3a2.4 2.4 0 0 1 0 3.4l-2.6 2.6a2.4 2.4 0 0 1-3.4 0L2.7 8.7a2.4 2.4 0 0 1 0-3.4l2.6-2.6a2.4 2.4 0 0 1 3.4 0Z"/><path d="m14.5 12.5 2-2M11.5 9.5l2-2M8.5 6.5l2-2M17.5 15.5l2-2"/></symbol>
+  <symbol id="i-folder" viewBox="0 0 24 24"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/></symbol>
+</svg>
+
+<div class="wrap"><div class="frame">
+
+  <div class="zones" aria-hidden="true"><span style="--z:0">1</span><span style="--z:1">2</span><span style="--z:2">3</span><span style="--z:3">4</span><span style="--z:4">5</span><span style="--z:5">6</span><span style="--z:6">7</span><span style="--z:7">8</span></div>
+
+  <header class="tb">
+    <div class="tb-main">
+      <span class="eyebrow label boot"><svg class="i"><use href="#i-ruler"/></svg>Portfolio · Sheet 00</span>
+      <h1>ศุภกฤต ก้องฐิติเดช</h1>
+      <div class="dim boot" style="--d:2"><span>IT DEVELOPER</span></div>
+      <div class="role boot" style="--d:3">นักพัฒนาระบบเทคโนโลยีสารสนเทศ</div>
+      <p class="about boot" style="--d:4">นักศึกษา ปวส. สาขาเทคโนโลยีสารสนเทศ วิทยาลัยเทคนิคสัตหีบ ถนัดงานเว็บ ฐานข้อมูล และการนำ AI มาช่วยสร้างซอฟต์แวร์ เคยทำเว็บร้านอะไหล่ที่เผยแพร่จริง แพลตฟอร์มจัดการความรู้สำหรับ SME และระบบจัดการร้านอาหาร ตั้งใจสร้างเครื่องมือที่ช่วยให้งานเร็วขึ้นและผิดพลาดน้อยลง</p>
+      <div class="cta boot" style="--d:5">
+        <a class="btn btn-primary" href="#projects">ดูผลงาน 6 โครงการ<svg class="i"><use href="#i-arrow-down"/></svg></a>
+        <button class="btn btn-ghost" type="button" id="open-latest">เปิดผลงานล่าสุด<svg class="i"><use href="#i-arrow-ur"/></svg></button>
+      </div>
+    </div>
+    <div class="tb-side">
+      <div class="cell boot" style="--d:2"><svg class="i"><use href="#i-phone"/></svg>
+        <div class="cell-txt"><span class="label">โทรศัพท์</span><span class="val" id="tel">082-691-5025</span></div>
+        <button type="button" class="copy" id="copy-tel" data-target="tel"><svg class="i"><use href="#i-copy"/></svg><span>คัดลอก</span></button></div>
+      <div class="cell boot" style="--d:3"><svg class="i"><use href="#i-mail"/></svg>
+        <div class="cell-txt"><span class="label">อีเมล</span><span class="val" id="mail">69319010031@tatc.ac.th</span></div>
+        <button type="button" class="copy" id="copy-mail" data-target="mail"><svg class="i"><use href="#i-copy"/></svg><span>คัดลอก</span></button></div>
+      <div class="cell boot" style="--d:4"><svg class="i"><use href="#i-pin"/></svg>
+        <div class="cell-txt"><span class="label">ที่อยู่</span><span class="val">อ.สัตหีบ จ.ชลบุรี</span></div></div>
+      <div class="cell boot" style="--d:5"><svg class="i"><use href="#i-globe"/></svg>
+        <div class="cell-txt"><span class="label">ภาษา</span><span class="val">ไทย (ภาษาแม่) · อังกฤษ B2</span></div></div>
+      <div class="dwg boot" style="--d:6">
+        <div><span class="label">DWG NO.</span><b>PF-2569</b></div>
+        <div><span class="label">REV</span><b>C</b></div>
+        <div><span class="label">SCALE</span><b>1:1</b></div>
+        <div><span class="label">DATE</span><b>10/2569</b></div>
+      </div>
+      <span class="sr" id="copy-status" aria-live="polite" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)"></span>
+    </div>
+  </header>
+
+  <nav class="snav" aria-label="สารบัญ">
+    <ol>
+      <li><a href="#projects"><b>01</b>ผลงาน</a></li>
+      <li><a href="#gallery"><b>02</b>งานอื่น</a></li>
+      <li><a href="#awards"><b>03</b>รางวัล</a></li>
+      <li><a href="#experience"><b>04</b>ประสบการณ์</a></li>
+      <li><a href="#skills"><b>05</b>ทักษะ</a></li>
+    </ol>
+  </nav>
+
+  <section class="sheet" id="projects">
+    <div class="sh"><span class="sno">01</span><h2>ผลงานโครงการ</h2><span class="label">กดการ์ดเพื่อดูรายละเอียด</span></div>
+    <div class="cards" id="cards"></div>
+  </section>
+
+  <section class="sheet" id="gallery">
+    <div class="sh"><span class="sno">02</span><h2>งานอื่น ๆ</h2><span class="label">AI · สื่อ</span></div>
+    <div class="sb gal" id="gal"></div>
+  </section>
+
+  <section class="sheet" id="awards">
+    <div class="sh"><span class="sno">03</span><h2>รางวัลและผลงาน</h2><span class="label">ระดับอาชีวศึกษา</span></div>
+    <div class="awards">
+      <div class="award reveal"><svg class="i"><use href="#i-award"/></svg><div class="rank"><span>รองชนะเลิศอันดับ</span><b>2</b></div>
+        <h3>การแข่งขัน depa ระดับภูมิภาค</h3><p>สำนักงานส่งเสริมเศรษฐกิจดิจิทัล</p></div>
+      <div class="award reveal"><svg class="i"><use href="#i-award"/></svg><div class="rank"><span>อันดับที่</span><b>18</b></div>
+        <h3>การแข่งขัน depa ระดับประเทศ</h3><p>ประเภทอาชีวศึกษา</p></div>
+      <div class="award reveal"><svg class="i"><use href="#i-award"/></svg><div class="rank"><span>รองชนะเลิศอันดับ</span><b>2</b></div>
+        <h3>การแข่งขันสื่อ AR/VR</h3><p>ประเภทอาชีวศึกษา จัดโดย มจพ.</p></div>
+    </div>
+  </section>
+
+  <div class="grid2">
+    <section class="sheet" id="experience">
+      <div class="sh"><span class="sno">04</span><h2>ประสบการณ์และการศึกษา</h2></div>
+      <div class="sb">
+        <div class="tl">
+          <div class="tli reveal"><span class="node"><svg class="i"><use href="#i-briefcase"/></svg></span>
+            <span class="label">พ.ศ. 2568 · ฝึกงาน</span>
+            <h3>นักศึกษาฝึกงานด้าน IT · เทศบาลตำบลเขตรอุดมศักดิ์</h3>
+            <ul>
+              <li>สนับสนุนงานไอทีให้บุคลากรของเทศบาล</li>
+              <li>บำรุงรักษาคอมพิวเตอร์และแก้ไขปัญหาการใช้งาน</li>
+              <li>ติดตั้งและตั้งค่าซอฟต์แวร์และฮาร์ดแวร์</li>
+              <li>ดูแลระบบคอมพิวเตอร์และเครือข่ายในสำนักงาน</li>
+            </ul></div>
+          <div class="tli reveal"><span class="node"><svg class="i"><use href="#i-grad"/></svg></span>
+            <span class="label">กำลังศึกษา</span>
+            <h3>ปวส. เทคโนโลยีสารสนเทศ · วิทยาลัยเทคนิคสัตหีบ</h3></div>
+          <div class="tli reveal"><span class="node"><svg class="i"><use href="#i-grad"/></svg></span>
+            <span class="label">พ.ศ. 2566–2568 · GPA 3.28</span>
+            <h3>ปวช. เทคโนโลยีสารสนเทศ · วิทยาลัยเทคนิคสัตหีบ</h3></div>
+          <div class="tli reveal"><span class="node"><svg class="i"><use href="#i-grad"/></svg></span>
+            <span class="label">GPA 2.97</span>
+            <h3>มัธยมศึกษาตอนต้น · โรงเรียนสิงห์สมุทร</h3></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="sheet" id="skills">
+      <div class="sh"><span class="sno">05</span><h2>ทักษะ</h2></div>
+      <div class="sb skills">
+        <div class="skill reveal"><h3><svg class="i"><use href="#i-code"/></svg>ภาษาโปรแกรม</h3>
+          <div class="tags"><span class="tag">Python</span><span class="tag">JavaScript</span><span class="tag">HTML</span><span class="tag">CSS</span></div></div>
+        <div class="skill reveal"><h3><svg class="i"><use href="#i-layout"/></svg>เว็บ</h3>
+          <div class="tags"><span class="tag">Next.js</span><span class="tag">React</span><span class="tag">Netlify</span></div></div>
+        <div class="skill reveal"><h3><svg class="i"><use href="#i-db"/></svg>ฐานข้อมูล</h3>
+          <div class="tags"><span class="tag">MySQL</span><span class="tag">Supabase</span><span class="tag">PostgreSQL</span></div></div>
+        <div class="skill reveal"><h3><svg class="i"><use href="#i-git"/></svg>เครื่องมือ</h3>
+          <div class="tags"><span class="tag">Git</span><span class="tag">GitHub</span><span class="tag">openpyxl</span></div></div>
+        <div class="skill reveal"><h3><svg class="i"><use href="#i-spark"/></svg>AI</h3>
+          <div class="tags"><span class="tag">Local AI Deployment</span><span class="tag">AI Workflow</span><span class="tag">Vibe Coding</span></div></div>
+        <div class="skill reveal"><h3><svg class="i"><use href="#i-network"/></svg>ระบบและเครือข่าย</h3>
+          <div class="tags"><span class="tag">Troubleshooting</span><span class="tag">Basic Networking</span></div></div>
+      </div>
+    </section>
+  </div>
+
+  <footer>
+    <div><span class="label">Drawn by</span><b>ศุภกฤต ก้องฐิติเดช</b></div>
+    <div><span class="label">DWG NO.</span><b>PF-2569</b></div>
+    <div><span class="label">REV</span><b>C</b></div>
+    <div><span class="label">Updated</span><b>ต.ค. 2569</b></div>
+    <a class="btn btn-ghost totop" href="#top-anchor" id="totop">กลับขึ้นบน<svg class="i"><use href="#i-arrow-up"/></svg></a>
+  </footer>
+</div></div>
+
+<dialog class="detail" id="detail" aria-labelledby="d-title">
+  <div class="dh">
+    <div class="dh-id"><span class="pno" id="d-no"></span><span class="status" id="d-status"></span></div>
+    <div class="dh-nav">
+      <button class="ibtn" type="button" id="d-prev" aria-label="โครงการก่อนหน้า" title="โครงการก่อนหน้า (←)"><svg class="i"><use href="#i-chev-l"/></svg></button>
+      <span class="dcount" id="d-count"></span>
+      <button class="ibtn" type="button" id="d-next" aria-label="โครงการถัดไป" title="โครงการถัดไป (→)"><svg class="i"><use href="#i-chev-r"/></svg></button>
+      <button class="ibtn" type="button" id="d-close" aria-label="ปิด" title="ปิด (Esc)"><svg class="i"><use href="#i-x"/></svg></button>
+    </div>
+  </div>
+  <div class="dscroll" id="d-body"></div>
+</dialog>
+
+<dialog class="lb" id="lb" aria-label="ภาพขยาย">
+  <div class="lb-top"><span id="lb-count"></span><button class="ibtn" type="button" id="lb-close" aria-label="ปิดภาพขยาย"><svg class="i"><use href="#i-x"/></svg></button></div>
+  <div class="lb-stage">
+    <button class="ibtn" type="button" id="lb-prev" aria-label="ภาพก่อนหน้า"><svg class="i"><use href="#i-chev-l"/></svg></button>
+    <img id="lb-img" alt="">
+    <button class="ibtn" type="button" id="lb-next" aria-label="ภาพถัดไป"><svg class="i"><use href="#i-chev-r"/></svg></button>
+  </div>
+  <p class="lb-cap" id="lb-cap"></p>
+</dialog>
+
+<div class="coords" id="coords" aria-hidden="true" hidden></div>
+
+<script>
+var ILL={
+  tables:'<svg class="ill" viewBox="0 0 420 262" role="img" aria-label="แผนผังสถานะโต๊ะในร้าน"><rect class="ln" x="10" y="10" width="400" height="242"/>'+
+    '<rect class="ga" x="40" y="40" width="80" height="60"/><rect class="gb" x="170" y="40" width="80" height="60"/><rect class="ga" x="300" y="40" width="80" height="60"/>'+
+    '<rect class="gb" x="40" y="150" width="80" height="60"/><rect class="ga" x="170" y="150" width="80" height="60"/><rect class="gd" x="300" y="150" width="80" height="60"/>'+
+    '<g font-size="13" text-anchor="middle"><text class="ti" x="80" y="75">T1</text><text class="ti" x="210" y="75">T2</text><text class="ti" x="340" y="75">T3</text><text class="ti" x="80" y="185">T4</text><text class="ti" x="210" y="185">T5</text><text class="ti" x="340" y="185">T6</text></g>'+
+    '<g font-size="11"><rect class="ga" x="40" y="230" width="10" height="10"/><text x="56" y="239">ว่าง</text><rect class="gb" x="110" y="230" width="10" height="10"/><text x="126" y="239">มีลูกค้า</text><rect class="gd" x="200" y="230" width="10" height="10"/><text x="216" y="239">จองแล้ว</text><text class="ta" x="300" y="239">คิวถัดไป: 3</text></g></svg>',
+  timetable:'<svg class="ill" viewBox="0 0 420 262" role="img" aria-label="ตัวอย่างตารางเรียน 5 วัน 6 คาบ ไม่มีคาบชนกัน">'+
+    '<g font-size="11"><text x="6" y="50">จ.</text><text x="6" y="94">อ.</text><text x="6" y="138">พ.</text><text x="6" y="182">พฤ.</text><text x="6" y="226">ศ.</text>'+
+    '<text x="62" y="16">1</text><text x="122" y="16">2</text><text x="182" y="16">3</text><text x="242" y="16">4</text><text x="302" y="16">5</text><text x="362" y="16">6</text></g>'+
+    '<rect class="ln" x="36" y="24" width="360" height="220"/><path class="ln" d="M96 24V244M156 24V244M216 24V244M276 24V244M336 24V244M36 68H396M36 112H396M36 156H396M36 200H396"/>'+
+    '<rect class="ga" x="40" y="28" width="112" height="36"/><rect class="ga" x="220" y="72" width="112" height="36"/><rect class="ga" x="100" y="116" width="52" height="36"/><rect class="ga" x="280" y="160" width="112" height="36"/><rect class="ga" x="40" y="204" width="52" height="36"/>'+
+    '<rect class="gb" x="220" y="28" width="52" height="36"/><rect class="gb" x="40" y="72" width="112" height="36"/><rect class="gb" x="220" y="116" width="112" height="36"/><rect class="gb" x="100" y="160" width="52" height="36"/><rect class="gb" x="160" y="204" width="112" height="36"/></svg>',
+  ga:'<svg class="ill" viewBox="0 0 420 262" role="img" aria-label="ขั้นตอน CSP กรองตาราง แล้ว Genetic Algorithm วนปรับปรุงจนได้ตารางที่ดีที่สุด">'+
+    '<g font-size="12" text-anchor="middle">'+
+    '<rect class="gs" x="14" y="104" width="92" height="54"/><text class="ti" x="60" y="128">ข้อจำกัด</text><text x="60" y="146" font-size="10">ครู ห้อง เวลา</text>'+
+    '<rect class="ga" x="136" y="104" width="76" height="54"/><text class="tb2" x="174" y="136">CSP</text>'+
+    '<rect class="gb" x="250" y="40" width="150" height="182"/><text class="ta" x="325" y="64">Genetic Algorithm</text>'+
+    '<rect class="gs" x="270" y="78" width="110" height="28"/><text x="325" y="97">สุ่มประชากร</text>'+
+    '<rect class="gs" x="270" y="116" width="110" height="28"/><text x="325" y="135">คะแนน fitness</text>'+
+    '<rect class="gs" x="270" y="154" width="110" height="28"/><text x="325" y="173">ผสม + กลายพันธุ์</text>'+
+    '<text class="ti" x="325" y="208" font-size="11">ตารางดีที่สุด</text></g>'+
+    '<path class="ln2" d="M106 131H136M212 131H250M380 168h10V92h-10"/><path class="ln2" d="M246 127l4 4-4 4M386 96l-6-4 6-4"/></svg>',
+  sheets:'<svg class="ill" viewBox="0 0 420 262" role="img" aria-label="รวม 17 ชีตเป็นชีตสรุปเดียวด้วย Python">'+
+    '<g font-size="12"><rect class="gs" x="24" y="30" width="116" height="34"/><rect class="gs" x="24" y="76" width="116" height="34"/><rect class="gs" x="24" y="122" width="116" height="34"/><rect class="gs" x="24" y="198" width="116" height="34"/>'+
+    '<text x="36" y="52">ฟุตบอล</text><text x="36" y="98">วอลเลย์บอล</text><text x="36" y="144">กรีฑา</text><text x="78" y="182" text-anchor="middle">⋮</text><text x="36" y="220">ชีตที่ 17</text>'+
+    '<rect class="ga" x="180" y="104" width="80" height="54"/><text class="tb2" x="220" y="136" text-anchor="middle">Python</text>'+
+    '<rect class="gb" x="300" y="84" width="100" height="94"/><text class="ta" x="350" y="120" text-anchor="middle">ชีตสรุป</text><text class="ta" x="350" y="144" text-anchor="middle" font-size="10">+ ผู้ที่ยังไม่ลง</text></g>'+
+    '<path class="ln2" d="M140 47L180 120M140 93L180 125M140 139L180 135M140 215L180 145M260 131H300"/></svg>'
+};
+
+var P=[
+  {no:'P-01',title:'ThaiGigaBike',sub:'เว็บร้านอะไหล่แต่ง CNC',status:'เผยแพร่แล้ว',kind:'s-live',type:'เว็บแอปพลิเคชัน · E-commerce',
+   summary:'เปลี่ยนเว็บร้านอะไหล่แต่ง CNC จากหน้า HTML ยุคเก่า เป็นร้านค้าออนไลน์ที่ค้นหาสินค้าได้ มีระบบสมาชิก และใช้ได้ทั้งไทยและอังกฤษ',
+   problem:'เว็บเดิมของร้านเป็นหน้า HTML แบบเก่า ไม่มี HTTPS สินค้าเรียงเป็นรูปยาวทีละหน้า ไม่มีระบบค้นหาหรือตะกร้า ลูกค้าต่างประเทศอ่านได้ยาก และต้องทักร้านถามทีละรายการ',
+   did:['ออกแบบหน้าเว็บใหม่ทั้งหมดในโทนมืด เน้นรูปสินค้าและรหัสสินค้าที่ลูกค้าใช้อ้างอิง','จัดสินค้า 369 รายการเป็น 8 หมวด และผูกกับรุ่นรถแต่ละยี่ห้อ','ทำระบบค้นหาด้วยรหัสหรือชื่อสินค้า กรองตามหมวดและรุ่นรถ เรียงตามราคา','ทำระบบสมาชิก ตะกร้า รายการโปรด ประวัติออเดอร์ และกล่องข้อความถึงร้าน','รองรับภาษาไทยและอังกฤษ พร้อมปุ่ม LINE สำหรับติดต่อด่วน','Deploy ขึ้น Netlify'],
+   tech:['Next.js','React','i18n TH/EN','Netlify'],
+   stats:[['369','รายการสินค้า'],['8','หมวดสินค้า'],['2','ภาษา TH/EN']],
+   link:'https://thaigigabike.netlify.app',
+   video:'media/gigabike-demo.mp4',
+   media:[{src:'media/gigabike-home.png',cap:'หน้าแรก พร้อมตัวกรองตามรุ่นรถ'},
+          {src:'media/gigabike-catalog.png',cap:'รายการสินค้า 369 รายการ กรองตามหมวดและรุ่นรถ'},
+          {src:'media/gigabike-search.png',cap:'หน้าค้นหาด้วยรหัสสินค้าและหมวดยอดนิยม'},
+          {src:'media/gigabike-messages.png',cap:'แบบฟอร์มส่งข้อความถึงร้าน'},
+          {src:'media/gigabike-account.png',cap:'หน้าบัญชีสมาชิก'},
+          {src:'media/gigabike-old.png',cap:'ก่อนปรับปรุง: เว็บเดิมของร้าน'},
+          {src:'media/gigabike-old-products.png',cap:'ก่อนปรับปรุง: หน้าสินค้าเดิมที่เรียงรูปยาวทีละหน้า'}]},
+  {no:'P-02',title:'MindKeep',sub:'แพลตฟอร์มจัดการความรู้ด้วย AI สำหรับ SME',status:'ต้นแบบ',kind:'s-plan',type:'แพลตฟอร์ม AI · ระบบภายในองค์กร',
+   summary:'แพลตฟอร์มเก็บเอกสารและความรู้ขององค์กร ใช้ AI ที่รันภายในบริษัท ข้อมูลไม่ออกไปภายนอก',
+   problem:'SME ไทยอยากใช้ AI ช่วยงานเอกสารและตอบคำถาม แต่ไม่อยากส่งข้อมูลบริษัทไปยังบริการภายนอก และความรู้ในงานมักอยู่กับตัวพนักงาน เมื่อมีคนลาออกงานก็สะดุด',
+   did:['ออกแบบให้ระบบทำงานแบบ on-premise ประมวลผลด้วย AI ที่รันในองค์กร','หน้าภาพรวมรวมงาน กิจกรรม เอกสาร และงานรออนุมัติไว้ที่เดียว','คลังเอกสาร 9 ประเภท เช่น ใบเสนอราคา VAT สัญญา พร้อมเวอร์ชันและตัวดู PDF ในระบบ','พื้นที่ทำงาน 8 ส่วน เช่น ปฏิทิน งาน การเงิน กฎหมาย การตลาด และผู้ช่วย AI','บันทึกกิจกรรม (audit log) ที่แก้ย้อนหลังไม่ได้ และรายงานส่งมอบงานอัตโนมัติเมื่อพนักงานลาออก','สิทธิ์ผู้ใช้ตามบทบาท และสลับภาษาไทย/อังกฤษ'],
+   tech:['Local AI','AI Workflow','Web App','Role-based Access'],
+   stats:[['9','ประเภทเอกสาร'],['8','พื้นที่ทำงาน'],['On-prem','ข้อมูลอยู่ในองค์กร']],
+   media:[{src:'media/mindkeep-dashboard.png',cap:'หน้าภาพรวม: งาน กิจกรรม เอกสาร และพื้นที่ทำงาน'},
+          {src:'media/mindkeep-login.png',cap:'หน้าเข้าสู่ระบบ พร้อมจุดเด่นของระบบ'},
+          {src:'media/mindkeep-docs.png',cap:'คลังเอกสาร กรองตามประเภท สถานะ ผู้อัปโหลด และวันที่'},
+          {src:'media/mindkeep-pdf.png',cap:'ตัวดูเอกสาร PDF พร้อมข้อมูลเวอร์ชัน'}]},
+  {no:'P-03',title:'Thai-Aus CheckPoint',sub:'ระบบเช็กชื่อเข้าร่วมกิจกรรม',status:'ออกแบบ UI',kind:'s-plan',type:'ออกแบบ UX/UI',
+   summary:'ออกแบบแอปเช็กชื่อเข้าร่วมกิจกรรมของวิทยาลัยด้วย QR Code และ NFC',
+   problem:'การเช็กชื่อเข้าร่วมกิจกรรมของวิทยาลัยด้วยกระดาษใช้เวลานาน และตรวจสอบย้อนหลังได้ยาก',
+   did:['วางลำดับหน้าจอตั้งแต่รายการกิจกรรม รายละเอียด จนถึงการเช็กชื่อ','ออกแบบ wireframe หน้ารายละเอียดกิจกรรม พร้อมวิธีเช็กชื่อ 2 แบบ: สแกน QR Code หรือแตะ NFC','วางโครงหน้าจอให้ต่อยอดเป็นแอปจริงได้'],
+   tech:['UX Wireframe','QR Code','NFC'],
+   stats:[['2','วิธีเช็กชื่อ QR / NFC']],
+   media:[{src:'media/checkpoint-wireframe.png',cap:'หน้าที่ 3: รายละเอียดกิจกรรมและการเช็กชื่อ'}]},
+  {no:'P-04',title:'ระบบร้านอาหารและคิวโต๊ะ',sub:'จัดการข้อมูลร้านด้วย Supabase',status:'พัฒนาแล้ว',kind:'s-live',type:'ระบบจัดการ · ฐานข้อมูล',
+   summary:'ระบบเก็บข้อมูลภายในร้านอาหารและจัดลำดับคิวโต๊ะ โดยใช้ Supabase เป็นฐานข้อมูลและ Backend',
+   problem:'ร้านอาหารติดตามข้อมูลร้านและลำดับคิวโต๊ะด้วยมือ ข้อมูลกระจัดกระจายและตกหล่นง่าย',
+   did:['ใช้ Supabase เป็นฐานข้อมูล PostgreSQL และ Backend ของระบบ','รวมข้อมูลภายในร้านไว้ที่เดียวแทนการจดแยก','ทำระบบจัดลำดับคิวโต๊ะ'],
+   tech:['Supabase','PostgreSQL','JavaScript'],
+   media:[{svg:'tables',cap:'แผนผังสถานะโต๊ะ (ภาพประกอบ)'}]},
+  {no:'P-05',title:'ระบบจัดตารางเรียนอัตโนมัติ',sub:'CSP ร่วมกับ Genetic Algorithm',status:'แนวคิดระบบ',kind:'s-plan',type:'อัลกอริทึม · การหาค่าที่ดีที่สุด',
+   summary:'แนวคิดระบบจัดตารางเรียนที่ไม่ให้ครู ห้อง และเวลาชนกัน โดยใช้ CSP ร่วมกับ Genetic Algorithm',
+   problem:'การจัดตารางเรียนด้วยมือใช้เวลานาน และเกิดการชนกันของครู ห้อง และเวลาได้ง่าย',
+   did:['กำหนดข้อจำกัดที่ห้ามละเมิดด้วย CSP เช่น ครูหรือห้องเรียนต้องไม่ถูกใช้ซ้อนคาบ','ใช้ Genetic Algorithm สุ่มตาราง ผสม และกลายพันธุ์ แล้วคัดตารางที่คะแนนดีที่สุดไปรุ่นถัดไป','ฟังก์ชันคะแนน (fitness) หักคะแนนเมื่อมีคาบชนกัน'],
+   tech:['CSP','Genetic Algorithm','Python'],
+   media:[{svg:'timetable',cap:'ตัวอย่างตารางที่ไม่มีคาบชนกัน (ภาพประกอบ)'},{svg:'ga',cap:'ขั้นตอนการทำงานของ CSP และ Genetic Algorithm (ภาพประกอบ)'}]},
+  {no:'P-06',title:'จัดระเบียบรายชื่อนักกีฬา',sub:'สคริปต์ Python สำหรับข้อมูล Excel',status:'ใช้งานจริง',kind:'s-live',type:'ระบบอัตโนมัติ · ข้อมูล',
+   summary:'สคริปต์รวมรายชื่อนักศึกษาจาก 17 ชีต ตรวจกับรายชื่อหลัก และสรุปผู้ที่ยังไม่ได้ลงกิจกรรม',
+   problem:'รายชื่อนักศึกษากระจายอยู่ใน 17 ชีตกีฬาและกิจกรรม มีข้อมูลซ้ำและไม่ตรงกับรายชื่อหลัก',
+   did:['อ่านข้อมูลจาก 17 ชีตด้วย openpyxl','ทำความสะอาดข้อมูลและรวมรายชื่อที่ซ้ำ','ตรวจทุกรายการกับรายชื่อหลักอัตโนมัติ','สร้างชีตสรุปพร้อมรายชื่อผู้ที่ยังไม่ได้ลงกิจกรรม'],
+   tech:['Python','openpyxl','Excel'],
+   stats:[['17','ชีตต้นทาง'],['1','ชีตสรุป']],
+   media:[{svg:'sheets',cap:'ขั้นตอนรวม 17 ชีตเป็นชีตสรุปเดียว (ภาพประกอบ)'}]}
+];
+
+var GAL=[
+  {src:'media/graph-1.png',cap:'Knowledge graph ของโค้ดเบส ใช้ดูโครงสร้างและความสัมพันธ์ของไฟล์'},
+  {src:'media/graph-2.png',cap:'Knowledge graph แบ่งกลุ่มโมดูลตามสี'},
+  {src:'media/milkmood-wide.png',cap:'สื่อโปรโมชันร้าน Milk Mood Café'}
+];
+
+function $(id){return document.getElementById(id)}
+function ic(n){return '<svg class="i" aria-hidden="true"><use href="#i-'+n+'"/></svg>'}
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+function photos(p){return p.media.filter(function(m){return m.src})}
+
+/* Cards */
+$('cards').innerHTML=P.map(function(p,i){
+  var m=p.media[0], n=photos(p).length;
+  var cover=m.src?'<img src="'+m.src+'" alt="'+esc(m.cap)+'" loading="lazy">':ILL[m.svg];
+  var badge=n?ic('image')+' '+n+' ภาพ':ic('layers')+' ภาพประกอบ';
+  return '<article class="card reveal"><div class="cover">'+cover+'<span class="mcount">'+badge+'</span></div>'+
+    '<div class="card-body"><div class="meta"><span class="pno">'+p.no+'</span><span class="status '+p.kind+'">'+p.status+'</span></div>'+
+    '<h3><button type="button" class="card-link" data-i="'+i+'">'+esc(p.title)+'</button></h3>'+
+    '<p class="sub">'+esc(p.sub)+'</p><p class="sum">'+esc(p.summary)+'</p>'+
+    '<div class="tags">'+p.tech.map(function(t){return '<span class="tag">'+esc(t)+'</span>'}).join('')+'</div>'+
+    '<span class="more">ดูรายละเอียด '+ic('arrow-right')+'</span></div></article>';
+}).join('');
+document.querySelectorAll('.card-link').forEach(function(b){b.addEventListener('click',function(){openP(+b.dataset.i)})});
+$('open-latest').addEventListener('click',function(){openP(0)});
+
+/* Gallery */
+$('gal').innerHTML=GAL.map(function(g,i){
+  return '<figure class="reveal"><button class="zoom" type="button" data-i="'+i+'" aria-label="ขยายภาพ: '+esc(g.cap)+'"><img src="'+g.src+'" alt="'+esc(g.cap)+'" loading="lazy"><span class="hint">'+ic('max')+'</span></button><figcaption>'+esc(g.cap)+'</figcaption></figure>';
+}).join('');
+document.querySelectorAll('#gal .zoom').forEach(function(z){z.addEventListener('click',function(){openLB(GAL,+z.dataset.i)})});
+
+/* Copy buttons */
+document.querySelectorAll('.copy').forEach(function(b){
+  var use=b.querySelector('use'), txt=b.querySelector('span'), timer;
+  b.addEventListener('click',function(){
+    var el=$(b.dataset.target), t=el.textContent.trim();
+    function done(){
+      b.classList.add('ok'); use.setAttribute('href','#i-check'); txt.textContent='คัดลอกแล้ว'; $('copy-status').textContent='คัดลอก '+t+' แล้ว';
+      clearTimeout(timer); timer=setTimeout(function(){b.classList.remove('ok');use.setAttribute('href','#i-copy');txt.textContent='คัดลอก'},1800);
+    }
+    function fallback(){var r=document.createRange();r.selectNodeContents(el);var s=getSelection();s.removeAllRanges();s.addRange(r);txt.textContent='เลือกข้อความแล้ว'}
+    try{navigator.clipboard.writeText(t).then(done,fallback)}catch(e){fallback()}
+  });
+});
+
+/* Project detail */
+var dlg=$('detail'), body=$('d-body'), cur=0, vi=0;
+function openP(i,dir){
+  cur=(i+P.length)%P.length; vi=0; renderD(dir);
+  if(!dlg.open) dlg.showModal();
+}
+function renderD(dir){
+  var p=P[cur], ph=photos(p);
+  $('d-no').textContent=p.no+' · '+p.type;
+  $('d-status').className='status '+p.kind; $('d-status').textContent=p.status;
+  $('d-count').textContent=(cur+1)+' / '+P.length;
+  var multi=p.media.length>1;
+  var stats=p.stats?'<div class="stats">'+p.stats.map(function(s){return '<div class="stat"><b>'+esc(s[0])+'</b><span>'+esc(s[1])+'</span></div>'}).join('')+'</div>':'';
+  body.innerHTML=
+    '<div class="dtitle"><h2 id="d-title">'+esc(p.title)+'</h2><p class="sub">'+esc(p.sub)+'</p><p class="sum">'+esc(p.summary)+'</p></div>'+
+    '<div class="dgrid"><div class="dmedia">'+
+      '<div class="viewer"><div class="vstage" id="vstage"></div>'+
+        (multi?'<button class="ibtn vnav vprev" type="button" id="vprev" aria-label="ภาพก่อนหน้า">'+ic('chev-l')+'</button><button class="ibtn vnav vnext" type="button" id="vnext" aria-label="ภาพถัดไป">'+ic('chev-r')+'</button><span class="vcount" id="vcount"></span>':'')+
+      '</div><p class="vcap" id="vcap"></p>'+
+      (multi?'<div class="thumbs" id="thumbs">'+p.media.map(function(m,k){
+        return '<button class="thumb" type="button" data-k="'+k+'" aria-label="ภาพที่ '+(k+1)+': '+esc(m.cap)+'">'+(m.src?'<img src="'+m.src+'" alt="" loading="lazy">':ILL[m.svg])+'</button>';
+      }).join('')+'</div>':'')+
+      (p.video?'<div class="vid" id="vid"><span class="label">'+ic('play')+' วิดีโอสาธิต</span><video controls preload="metadata" playsinline src="'+p.video+'"></video></div>':'')+
+    '</div><div class="dspec">'+stats+
+      '<div class="blk"><span class="blk-ic">'+ic('alert')+'</span><h3>ปัญหา</h3><p>'+esc(p.problem)+'</p></div>'+
+      '<div class="blk"><span class="blk-ic">'+ic('wrench')+'</span><h3>สิ่งที่ทำ</h3><ul>'+p.did.map(function(d){return '<li>'+esc(d)+'</li>'}).join('')+'</ul></div>'+
+      '<div class="blk"><span class="blk-ic">'+ic('layers')+'</span><h3>เทคโนโลยี</h3><div class="tags">'+p.tech.map(function(t){return '<span class="tag">'+esc(t)+'</span>'}).join('')+'</div></div>'+
+      (p.link?'<div class="blk"><span class="blk-ic">'+ic('external')+'</span><h3>ลิงก์</h3><a class="dlink" href="'+p.link+'" target="_blank" rel="noopener">'+p.link.replace('https://','')+ic('arrow-ur')+'</a></div>':'')+
+    '</div></div>'+
+    '<div class="dfoot"><div><span class="label">Sheet</span><b>'+p.no+' / P-0'+P.length+'</b></div><div><span class="label">DWG NO.</span><b>PF-2569</b></div><div><span class="label">Drawn by</span><b>ศุภกฤต ก.</b></div><div><span class="label">Media</span><b>'+(ph.length?ph.length+' ภาพ':'ภาพประกอบ')+'</b></div></div>';
+
+  if(multi){
+    $('vprev').addEventListener('click',function(){showV(vi-1)});
+    $('vnext').addEventListener('click',function(){showV(vi+1)});
+    document.querySelectorAll('#thumbs .thumb').forEach(function(t){t.addEventListener('click',function(){showV(+t.dataset.k)})});
+  }
+  var vid=$('vid');
+  // ponytail: video block hides itself until the file exists; publish media/gigabike-demo.mp4 and it appears
+  if(vid) vid.querySelector('video').addEventListener('error',function(){vid.hidden=true});
+  showV(0);
+  body.scrollTop=0;
+  body.dataset.dir=dir||''; body.classList.remove('anim'); void body.offsetWidth; body.classList.add('anim');
+}
+function showV(k){
+  var p=P[cur], n=p.media.length; vi=(k+n)%n; var m=p.media[vi];
+  var st=$('vstage');
+  if(m.src){
+    st.innerHTML='<button class="vmain" type="button" aria-label="ขยายภาพ: '+esc(m.cap)+'"><img src="'+m.src+'" alt="'+esc(m.cap)+'"></button>';
+    st.firstChild.addEventListener('click',function(){var ph=photos(p);openLB(ph,ph.indexOf(m))});
+  } else st.innerHTML=ILL[m.svg];
+  $('vcap').innerHTML='<b>รูปที่ '+(vi+1)+'</b><span>'+esc(m.cap)+'</span>';
+  if($('vcount')) $('vcount').textContent=(vi+1)+' / '+n;
+  document.querySelectorAll('#thumbs .thumb').forEach(function(t,j){t.classList.toggle('on',j===vi)});
+  var on=document.querySelector('#thumbs .thumb.on'); if(on) on.scrollIntoView({block:'nearest',inline:'nearest'});
+}
+$('d-prev').addEventListener('click',function(){openP(cur-1,'prev')});
+$('d-next').addEventListener('click',function(){openP(cur+1,'next')});
+$('d-close').addEventListener('click',function(){dlg.close()});
+dlg.addEventListener('click',function(e){if(e.target===dlg) dlg.close()});
+dlg.addEventListener('close',function(){var v=dlg.querySelector('video'); if(v) v.pause()});
+
+/* Lightbox */
+var lb=$('lb'), lbList=[], lbI=0;
+function openLB(list,k){lbList=list; showLB(k); if(!lb.open) lb.showModal()}
+function showLB(k){
+  var n=lbList.length; lbI=(k+n)%n; var m=lbList[lbI], img=$('lb-img');
+  img.src=m.src; img.alt=m.cap; img.style.animation='none'; void img.offsetWidth; img.style.animation='';
+  $('lb-cap').textContent=m.cap; $('lb-count').textContent=(lbI+1)+' / '+n;
+  $('lb-prev').hidden=$('lb-next').hidden=n<2;
+}
+$('lb-prev').addEventListener('click',function(){showLB(lbI-1)});
+$('lb-next').addEventListener('click',function(){showLB(lbI+1)});
+$('lb-close').addEventListener('click',function(){lb.close()});
+lb.addEventListener('click',function(e){if(e.target===lb||e.target.classList.contains('lb-stage')) lb.close()});
+
+document.addEventListener('keydown',function(e){
+  if(e.key!=='ArrowLeft'&&e.key!=='ArrowRight') return;
+  if(e.target.closest&&e.target.closest('video')) return;
+  var d=e.key==='ArrowLeft'?-1:1;
+  if(lb.open){showLB(lbI+d);e.preventDefault()}
+  else if(dlg.open){openP(cur+d,d<0?'prev':'next');e.preventDefault()}
+});
+
+/* Deep link: #p01 … #p06 opens that project */
+var m=location.hash.match(/^#p0?([1-6])$/); if(m) openP(+m[1]-1);
+
+/* Sheet nav: mark the section in view */
+var links=document.querySelectorAll('.snav a');
+if('IntersectionObserver' in window){
+  var io=new IntersectionObserver(function(es){es.forEach(function(en){
+    if(en.isIntersecting) links.forEach(function(a){a.classList.toggle('on',a.getAttribute('href')==='#'+en.target.id)});
+  })},{rootMargin:'-35% 0px -60% 0px'});
+  document.querySelectorAll('.sheet[id]').forEach(function(s){io.observe(s)});
+}
+$('totop').addEventListener('click',function(e){e.preventDefault();window.scrollTo({top:0,behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'})});
+
+/* Cursor readout in mm, like a CAD status bar */
+var co=$('coords'), raf=0, px=0, py=0;
+if(matchMedia('(pointer:fine)').matches){
+  addEventListener('pointermove',function(e){px=e.pageX;py=e.pageY;if(!raf) raf=requestAnimationFrame(function(){
+    raf=0; co.hidden=false; co.textContent='X '+(px*.2646).toFixed(1).padStart(6,'0')+'  Y '+(py*.2646).toFixed(1).padStart(6,'0')+' mm';
+  })},{passive:true});
+}
+</script>
