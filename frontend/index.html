@@ -1,3 +1,8 @@
+<!doctype html>
+<html lang="th">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Portfolio ศุภกฤต ก้องฐิติเดช นักศึกษา ปวส. เทคโนโลยีสารสนเทศ วิทยาลัยเทคนิคสัตหีบ: ผลงาน รางวัล ภาวะผู้นำ และทักษะ">
 <title>Portfolio ศุภกฤต</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=IBM+Plex+Sans+Thai:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
@@ -37,11 +42,15 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--accent);outline-off
 .tag{font:500 13.5px/1.6 var(--mono);border:1px solid var(--rule);padding:1px 8px;border-radius:2px;color:var(--ink)}
 .status{font:500 13px/1.6 var(--mono);padding:1px 8px;border-radius:2px;white-space:nowrap}
 .s-live{background:var(--accent-soft);color:var(--accent)}
+:root:not([data-theme="dark"]) .s-live{color:#9a3412}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .s-live{color:var(--accent)}}
 .s-plan{background:var(--blue-soft);color:var(--blue)}
 .s-star{border:1px solid var(--ink);color:var(--ink)}
 .pno{font:500 13px var(--mono);color:var(--ink-2);letter-spacing:.03em}
 .ibtn{display:inline-grid;place-items:center;width:40px;height:40px;border:1px solid var(--rule);background:var(--sheet);color:var(--ink);border-radius:2px;cursor:pointer;flex:none}
 .ibtn:hover{border-color:var(--ink)}
+.skip{position:absolute;left:12px;top:-60px;z-index:100;padding:10px 16px;background:var(--ink);color:var(--sheet);font-weight:600;transition:top .2s}
+.skip:focus{top:12px}
 .vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 
 .wrap{max-width:1120px;margin:0 auto;padding-block:28px 56px;
@@ -83,7 +92,7 @@ a.val{color:var(--blue)}
 .dwg div{padding:8px 12px;display:flex;flex-direction:column;min-width:0}
 .dwg div+div{border-left:1px solid var(--rule)}
 .dwg b{font:500 14px var(--mono)}
-.dwg .label{font-size:11px}
+.dwg .label{font-size:12px}
 
 /* Sheet nav */
 .snav{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--sheet);border:1px solid var(--ink);overflow-x:auto;scrollbar-width:none}
@@ -189,7 +198,7 @@ a.val{color:var(--blue)}
 .rank b{font-size:40px;font-weight:700;line-height:1;color:var(--accent);font-variant-numeric:tabular-nums}
 .rank span{font-size:16px;font-weight:600}
 .award h3{font-size:18px;font-weight:600}
-.award p{font-size:15px;color:var(--ink-2)}
+.award p:not(.pmg-cap){font-size:15px;color:var(--ink-2)}
 .award .label{display:flex;align-items:center;gap:6px}
 .evid{display:inline-flex;align-items:center;gap:6px;margin-top:auto;padding-top:4px;font:500 14px var(--mono);color:var(--accent);background:none;border:0;cursor:pointer;padding-left:0;text-align:left}
 .evid .i{transition:transform .3s var(--ease)}
@@ -244,7 +253,7 @@ footer{display:grid;grid-template-columns:repeat(4,auto) 1fr;border:1.5px solid 
 footer>div{padding:8px 14px;display:flex;flex-direction:column;min-width:0}
 footer>div+div{border-left:1px solid var(--rule)}
 footer b{font:500 14px var(--mono)}
-footer .label{font-size:11px}
+footer .label{font-size:12px}
 .totop{justify-self:end;align-self:center;margin-right:8px}
 
 /* Project detail */
@@ -303,7 +312,7 @@ footer .label{font-size:11px}
 .dfoot div{padding:8px 14px;display:flex;flex-direction:column;min-width:0}
 .dfoot div+div{border-left:1px solid var(--rule)}
 .dfoot b{font:500 14px var(--mono);overflow-wrap:anywhere}
-.dfoot .label{font-size:11px}
+.dfoot .label{font-size:12px}
 .dscroll.anim .dtitle,.dscroll.anim .dmedia,.dscroll.anim .dspec>*{animation:rise .5s var(--ease) both}
 .dscroll.anim .dmedia{animation-delay:.06s}
 .dscroll.anim .dspec>*:nth-child(1){animation-delay:.1s}
@@ -539,6 +548,7 @@ footer .label{font-size:11px}
   <symbol id="i-users" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></symbol>
 </svg>
 
+<a class="skip" href="#main">ข้ามไปที่เนื้อหา</a>
 <div class="wrap"><div class="frame">
 
   <div class="zones" aria-hidden="true"><span style="--z:0">1</span><span style="--z:1">2</span><span style="--z:2">3</span><span style="--z:3">4</span><span style="--z:4">5</span><span style="--z:5">6</span><span style="--z:6">7</span><span style="--z:7">8</span></div>
@@ -549,9 +559,9 @@ footer .label{font-size:11px}
       <h1>ศุภกฤต ก้องฐิติเดช</h1>
       <div class="dim boot" style="--d:2"><span>IT DEVELOPER</span></div>
       <div class="role boot" style="--d:3">นักพัฒนาระบบเทคโนโลยีสารสนเทศ</div>
-      <p class="about boot" style="--d:4">นักศึกษา ปวส. สาขาเทคโนโลยีสารสนเทศ วิทยาลัยเทคนิคสัตหีบ สนใจพัฒนาซอฟต์แวร์ที่ช่วยให้งานในสำนักงานเร็วขึ้นและผิดพลาดน้อยลง มีประสบการณ์ทำเว็บ E-commerce ที่เผยแพร่จริง ออกแบบฐานข้อมูลระบบร้านอาหาร และร่วมพัฒนา AI Workspace แบบ on-premise สำหรับ SME ปีการศึกษา 2569 ดำรงตำแหน่งประธานชมรมวิชาชีพเทคโนโลยีสารสนเทศ ใน อวท. วิทยาลัยเทคนิคสัตหีบ</p>
+      <p class="about boot" style="--d:4">นักศึกษา ปวส. สาขาเทคโนโลยีสารสนเทศ วิทยาลัยเทคนิคสัตหีบ สนใจพัฒนาซอฟต์แวร์ที่ช่วยให้งานในสำนักงานเร็วขึ้นและผิดพลาดน้อยลง มีประสบการณ์ทำเว็บ E-commerce ที่เผยแพร่จริง ออกแบบฐานข้อมูลระบบร้านอาหาร และกำลังพัฒนา MindKeep ระบบความจำองค์กรด้วย AI แบบ on-premise สำหรับ SME ปีการศึกษา 2569 ดำรงตำแหน่งประธานชมรมวิชาชีพเทคโนโลยีสารสนเทศ ใน อวท. วิทยาลัยเทคนิคสัตหีบ</p>
       <div class="cta boot" style="--d:5">
-        <a class="btn btn-primary" href="#projects">ดูผลงาน 8 โครงการ<svg class="i"><use href="#i-arrow-down"/></svg></a>
+        <a class="btn btn-primary" href="#projects">ดูผลงาน 7 โครงการ<svg class="i"><use href="#i-arrow-down"/></svg></a>
         <button class="btn btn-ghost" type="button" id="open-latest">เปิดผลงานเด่น<svg class="i"><use href="#i-arrow-ur"/></svg></button>
       </div>
     </div>
@@ -592,6 +602,7 @@ footer .label{font-size:11px}
     </ol>
   </nav>
 
+  <main id="main">
   <section class="sheet" id="me">
     <div class="sh"><span class="sno">00</span><h2>เกี่ยวกับผม</h2><span class="label">ภาพเลื่อนเองทุก 5 วินาที</span></div>
     <div class="me">
@@ -711,8 +722,7 @@ footer .label{font-size:11px}
       </div>
     </div>
   </section>
-    </section>
-  </div>
+  </main>
 
   <footer>
     <div><span class="label">Drawn by</span><b>ศุภกฤต ก้องฐิติเดช</b></div>
