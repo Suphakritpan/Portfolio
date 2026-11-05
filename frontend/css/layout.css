@@ -58,8 +58,8 @@ a.val{color:var(--blue)}
 .zoom{position:relative;display:block;width:100%;padding:0;border:1px solid var(--rule);background:var(--paper);cursor:zoom-in;line-height:0;overflow:hidden}
 .zoom img{width:100%;display:block;transition:transform .6s var(--ease)}
 .zoom:hover img{transform:scale(1.04)}
-.tb-photo{border-bottom:1px solid var(--rule);display:flex;gap:14px;align-items:center;padding:12px 18px}
-.tb-photo .zoom{width:84px;flex:none}
+.tb-photo{border-bottom:1px solid var(--rule);display:flex;flex-direction:column;gap:10px;align-items:stretch;padding:16px 18px}
+.tb-photo .zoom{width:100%;flex:none}
 .tb-photo .zoom img{aspect-ratio:1;object-fit:cover;object-position:center 25%}
 .tb-photo p{font-size:14px;color:var(--ink-2);line-height:1.6}
 
