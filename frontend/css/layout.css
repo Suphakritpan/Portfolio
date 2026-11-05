@@ -1,5 +1,5 @@
 /* Page frame: zone strip, title block, sheet nav, sheets, footer, cursor readout, load sequence */
-.wrap{max-width:1120px;margin:0 auto;padding-block:28px 56px;
+.wrap{max-width:840px;margin:0 auto;padding-block:28px 56px;
   padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
 .frame{position:relative;border:1.5px solid var(--ink);outline:1px solid var(--ink);outline-offset:6px;margin:7px;
   padding:0 26px 26px;display:flex;flex-direction:column;gap:26px}

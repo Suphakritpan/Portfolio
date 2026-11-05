@@ -1,0 +1,47 @@
+/* Responsive layer, loaded last. Ranges: <=520 phones, <=860 large phones/small tablets, 861-1040 tablets, 1600+ large desktops, 2200+ TV/4K.
+   Existing component breakpoints live beside their components; this file only adds what was missing. */
+
+/* Phones: logos wrap instead of overflowing the award card, and the presenter QR gets out of the way */
+@media (max-width:520px){
+  .award-logos{flex-wrap:wrap;max-width:100%;align-self:flex-start}
+  .award-logos img{max-width:100%;height:40px}
+  .cta .btn{flex:1 1 100%;justify-content:center}
+}
+@media (max-width:640px){
+  .qr-float{display:none}
+}
+
+/* Landscape phones: short viewport, so keep the sticky nav and dialogs compact */
+@media (max-height:500px){
+  .snav{position:static}
+  .qr-dlg .qr{width:min(100%,44vh)}
+  .qr-dlg{padding:14px}
+}
+
+/* Touch screens: every control reaches the 44px minimum target */
+@media (pointer:coarse){
+  .btn{min-height:44px}
+  .copy{min-height:44px;padding-inline:12px}
+  .ibtn,.theme-btn,.pmg-btn,.pmg-more,.fab-item{min-width:44px;min-height:44px}
+  .theme-btn{width:44px;height:44px}
+  .snav a{padding-block:13px}
+  .tags .tag{padding-block:4px}
+  a.val{display:inline-block;padding-block:8px}
+}
+
+/* Large desktops: use the extra width instead of floating a 1120px column in the middle */
+@media (min-width:1600px){
+  .wrap{max-width:1020px}
+  body{font-size:18px}
+  .cards{gap:26px}
+}
+@media (min-width:2200px){
+  .wrap{max-width:1260px}
+  body{font-size:20px}
+  .label,.tag,.status{font-size:15px}
+  .tb h1{font-size:72px}
+}
+
+/* Sheet nav on narrow screens: items keep their width and the list scrolls sideways, instead of wrapping words inside each item */
+.snav li{flex:none}
+.snav a{white-space:nowrap}
