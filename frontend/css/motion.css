@@ -1,0 +1,87 @@
+/* Motion layer: hero motion graphic, skill marquee, stat counters, card spotlight. All motion is killed by the prefers-reduced-motion rule in base.css. */
+
+/* Hero motion graphic: a drafting-compass / circuit drawing that draws itself, then idles */
+.tb-main{position:relative;overflow:hidden}
+.tb-main>*:not(.mg){position:relative;z-index:1}
+.mg{position:absolute;right:-60px;top:50%;width:min(420px,70%);aspect-ratio:1;translate:var(--px,0) calc(-50% + var(--py,0px));
+  pointer-events:none;opacity:.9;transition:translate .5s var(--ease)}
+.mg svg{width:100%;height:100%;overflow:visible;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.mg .c1{stroke:var(--rule);stroke-width:1}
+.mg .c2{stroke:var(--ink-2);stroke-width:1;stroke-dasharray:3 7;transform-origin:160px 160px;animation:spin 40s linear infinite}
+.mg .c3{stroke:var(--blue);stroke-width:1.25;stroke-dasharray:60 20;transform-origin:160px 160px;animation:spin 26s linear infinite reverse}
+.mg .hex{stroke:var(--ink-2);stroke-width:1.25;transform-origin:160px 160px;animation:spin 60s linear infinite}
+.mg .xh{stroke:var(--rule);stroke-width:1}
+.mg .trace{stroke:var(--accent);stroke-width:2;stroke-dasharray:420;stroke-dashoffset:420;animation:trace 5s var(--ease) .6s infinite}
+.mg .orb{transform-origin:160px 160px;animation:spin 9s linear infinite}
+.mg .orb circle{fill:var(--accent)}
+.mg .orb2{animation-duration:15s;animation-direction:reverse}
+.mg .orb2 circle{fill:var(--blue)}
+.mg .pt{fill:var(--sheet);stroke:var(--accent);stroke-width:1.5;animation:blink 2.4s ease-in-out infinite}
+.mg text{font:500 9px var(--mono);fill:var(--ink-2);stroke:none;letter-spacing:.1em}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes trace{0%{stroke-dashoffset:420}55%,80%{stroke-dashoffset:0}100%{stroke-dashoffset:-420}}
+@keyframes blink{50%{fill:var(--accent)}}
+@media (max-width:860px){.mg{right:-90px;opacity:.45;width:300px}}
+
+/* Skill marquee: scrolling tape under the sheet nav */
+.tape{overflow:hidden;border:1px solid var(--ink);background:var(--ink);color:var(--sheet);
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent)}
+.tape-track{display:flex;width:max-content;animation:tape 38s linear infinite}
+.tape:hover .tape-track{animation-play-state:paused}
+.tape-track span{display:flex;align-items:center;gap:14px;padding:9px 0 9px 14px;font:500 14px var(--mono);letter-spacing:.06em;text-transform:uppercase;white-space:nowrap}
+.tape-track span::after{content:"";width:6px;height:6px;background:var(--accent);rotate:45deg;flex:none}
+@keyframes tape{to{transform:translateX(-50%)}}
+
+/* Stat counters */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);background:var(--sheet);border:1.5px solid var(--ink)}
+.stat{position:relative;padding:18px 20px;display:flex;flex-direction:column;gap:2px;overflow:hidden}
+.stat+.stat{border-left:1px solid var(--rule)}
+.stat b{font:700 clamp(34px,5vw,52px)/1 var(--display);color:var(--accent);font-variant-numeric:tabular-nums}
+.stat::after{content:"";position:absolute;left:0;bottom:0;height:3px;width:100%;background:var(--accent);transform:scaleX(0);transform-origin:left;transition:transform 1.2s var(--ease)}
+.stats.in .stat::after{transform:scaleX(1)}
+.stats.in .stat:nth-child(2)::after{transition-delay:.12s}.stats.in .stat:nth-child(3)::after{transition-delay:.24s}.stats.in .stat:nth-child(4)::after{transition-delay:.36s}
+@media (max-width:560px){
+  .stats{grid-template-columns:1fr 1fr}
+  .stat:nth-child(3){border-left:0}
+  .stat:nth-child(n+3){border-top:1px solid var(--rule)}
+}
+
+/* Card spotlight follows the cursor */
+.card::before{content:"";position:absolute;inset:0;z-index:2;pointer-events:none;opacity:0;transition:opacity .3s;
+  background:radial-gradient(260px circle at var(--mx,50%) var(--my,50%),var(--accent-soft),transparent 70%)}
+.card:hover::before{opacity:1}
+
+/* Sheet numbers pop in when their sheet scrolls into view */
+.sno{display:inline-block}
+.sheet.seen .sno{animation:pop .6s var(--ease)}
+
+/* Award rank: slams in from oversize and settles (decelerates, no bounce) */
+.rank b{display:inline-block}
+.rank b.pre{opacity:0}
+.rank b.hit{animation:slam .55s var(--ease) both}
+@keyframes slam{from{opacity:0;scale:2.4;filter:blur(6px)}60%{filter:blur(0)}to{opacity:1;scale:1}}
+
+/* Blueprint grid lights up around the cursor */
+.gridlit{position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:0;transition:opacity .4s;
+  background-image:linear-gradient(var(--accent) 1px,transparent 1px),linear-gradient(90deg,var(--accent) 1px,transparent 1px);
+  background-size:24px 24px;
+  -webkit-mask-image:radial-gradient(200px circle at var(--cx,50%) var(--cy,50%),rgba(0,0,0,.35),transparent 70%);
+  mask-image:radial-gradient(200px circle at var(--cx,50%) var(--cy,50%),rgba(0,0,0,.35),transparent 70%)}
+.gridlit.on{opacity:1}
+
+/* Magnetic buttons: pull toward the cursor via the independent translate property */
+.btn{transition:translate .25s var(--ease)}
+
+/* Theme toggle lives at the end of the sheet nav; the list scrolls, the button stays put */
+.snav{display:flex;align-items:center;overflow:visible}
+.snav ol{flex:1;min-width:0;overflow-x:auto;scrollbar-width:none}
+.theme-btn{margin:0 6px;width:36px;height:36px}
+.theme-btn .i{transition:rotate .5s var(--ease)}
+.theme-btn:hover .i{rotate:30deg}
+
+/* Theme change: the old and new pages are stacked and the new one is revealed by JS (circle); no default cross-fade */
+::view-transition-old(root),::view-transition-new(root){animation:none;mix-blend-mode:normal}
+::view-transition-old(root){z-index:1}
+::view-transition-new(root){z-index:2}
+/* Fallback for browsers without View Transitions */
+.theme-fade,.theme-fade *,.theme-fade *::before,.theme-fade *::after{transition:background-color .6s ease,color .6s ease,border-color .6s ease,fill .6s ease,stroke .6s ease!important}
