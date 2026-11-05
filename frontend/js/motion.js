@@ -129,3 +129,67 @@
   document.getElementById('qr-x')?.addEventListener('click', () => dlg.close());
   dlg.addEventListener('click', e => { if (e.target === dlg) dlg.close(); });
 })();
+
+/* Guide hints (shown once per browser): 1) arrow to the theme button  2) phone tip to open desktop mode */
+(() => {
+  const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const seen = k => { try { return localStorage.getItem(k) === '1'; } catch (e) { return false; } };
+  const mark = k => { try { localStorage.setItem(k, '1'); } catch (e) {} };
+  const mk = (tag, cls, html) => { const e = document.createElement(tag); if (cls) e.className = cls; if (html) e.innerHTML = html; return e; };
+  const NS = 'http://www.w3.org/2000/svg';
+
+  /* 1. Theme button hint */
+  const btn = document.getElementById('theme-btn');
+  if (btn && !seen('hint-theme')) {
+    let layer = null, raf = 0, timer = 0;
+    const place = () => {
+      raf = 0; if (!layer) return;
+      const r = btn.getBoundingClientRect();
+      if (r.bottom < 0 || r.top > innerHeight) { layer.style.visibility = 'hidden'; return; }
+      layer.style.visibility = '';
+      const tx = r.left + r.width / 2, ty = r.top + r.height / 2, up = ty > 170, bw = 220;
+      const bx = Math.max(12, Math.min(innerWidth - bw - 12, tx - bw + 24)), by = up ? ty - 156 : ty + 80;
+      const bub = layer.querySelector('.hint-bubble'), bh = bub.offsetHeight;
+      bub.style.left = bx + 'px'; bub.style.top = by + 'px';
+      const sx = Math.min(bx + bw - 30, tx), sy = up ? by + bh + 4 : by - 4, ex = tx, ey = up ? ty - 30 : ty + 30;
+      const my = (sy + ey) / 2;
+      layer.querySelector('.hint-line').setAttribute('d', `M${sx} ${sy} C${sx} ${my} ${ex} ${my} ${ex} ${ey}`);
+      const h = layer.querySelector('.hint-head'), a = up ? 0 : 180;
+      h.setAttribute('transform', `translate(${ex} ${ey}) rotate(${a})`);
+      const ring = layer.querySelector('.hint-ring'); ring.style.left = tx + 'px'; ring.style.top = ty + 'px';
+    };
+    const sched = () => { if (!raf) raf = requestAnimationFrame(place); };
+    const close = () => {
+      if (!layer) return; mark('hint-theme'); clearTimeout(timer);
+      const l = layer; layer = null; l.classList.add('out'); setTimeout(() => l.remove(), still ? 0 : 400);
+      removeEventListener('scroll', sched); removeEventListener('resize', sched);
+    };
+    const show = () => {
+      if (layer || seen('hint-theme')) return;
+      layer = mk('div', 'hint-layer');
+      const svg = document.createElementNS(NS, 'svg'); svg.setAttribute('aria-hidden', 'true');
+      svg.innerHTML = '<path class="hint-line" pathLength="1"/><path class="hint-head" d="M0 0 L-9 -14 L9 -14 Z"/>';
+      layer.appendChild(svg); layer.appendChild(mk('span', 'hint-ring'));
+      const bub = mk('div', 'hint-bubble', '<b>ลองดู</b>สลับธีมสว่าง / มืดได้ที่ปุ่มนี้'); bub.setAttribute('role', 'status');
+      const x = mk('button', 'hint-x', '<svg class="i" aria-hidden="true"><use href="#i-x"/></svg>'); x.type = 'button'; x.setAttribute('aria-label', 'ปิดคำแนะนำ');
+      x.addEventListener('click', close); bub.appendChild(x); layer.appendChild(bub);
+      document.body.appendChild(layer); place();
+      addEventListener('scroll', sched, {passive: true}); addEventListener('resize', sched);
+      timer = setTimeout(close, 12000);
+    };
+    btn.addEventListener('click', close);
+    addEventListener('keydown', e => { if (e.key === 'Escape') close(); });
+    new IntersectionObserver((es, o) => { if (es[0].isIntersecting) { o.disconnect(); setTimeout(show, 1200); } }, {threshold: 1}).observe(btn);
+  }
+
+  /* 2. Phone tip */
+  if (matchMedia('(max-width: 820px) and (pointer: coarse)').matches && !seen('hint-desktop')) {
+    setTimeout(() => {
+      const m = mk('div', 'hint-m',
+        '<svg class="arr" viewBox="0 0 34 54" aria-hidden="true"><path d="M17 52V6M5 18 17 5l12 13"/></svg>' +
+        '<div class="card-m" role="status"><b>เคล็ดลับ</b>เว็บนี้ออกแบบมาให้ดูบนคอม ถ้าเปิดบนมือถือ แนะนำให้เปิดเมนูเบราว์เซอร์ (⋮ หรือ ⋯) แล้วเลือก “เว็บไซต์เดสก์ท็อป” จะเห็นเลย์เอาต์เต็ม<button type="button">เข้าใจแล้ว</button></div>');
+      m.querySelector('button').addEventListener('click', () => { mark('hint-desktop'); m.classList.add('out'); setTimeout(() => m.remove(), still ? 0 : 400); });
+      document.body.appendChild(m);
+    }, 1800);
+  }
+})();
