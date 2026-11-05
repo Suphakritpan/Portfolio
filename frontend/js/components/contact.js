@@ -44,8 +44,8 @@ function initFab() {
   menu.addEventListener('click', e => {
     const it = e.target.closest('[data-fab]'); if (!it) return;
     const k = it.dataset.fab;
-    if (k === 'mail' || k === 'tel') {
-      const t = $(k).textContent.trim(), name = k === 'mail' ? 'อีเมล' : 'เบอร์โทร';
+    if (k === 'mail' || k === 'mail2' || k === 'tel') {
+      const t = $(k).textContent.trim(), name = k === 'tel' ? 'เบอร์โทร' : k === 'mail2' ? 'อีเมลวิทยาลัย' : 'อีเมล';
       copyText(t).then(ok => toast(ok ? 'คัดลอก' + name + 'แล้ว: ' + t : name + ': ' + t));
     } else if (k === 'top') scrollTop();
     setOpen(false);

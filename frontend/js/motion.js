@@ -120,3 +120,12 @@
   mq.addEventListener('change', paint);
   paint();
 })();
+
+/* QR code: click the small code (or its button) to show it full-size for the audience; backdrop click or Esc closes */
+(() => {
+  const dlg = document.getElementById('qr-dlg'); if (!dlg) return;
+  const open = () => dlg.showModal();
+  ['qr-open', 'qr-big'].forEach(id => document.getElementById(id)?.addEventListener('click', open));
+  document.getElementById('qr-x')?.addEventListener('click', () => dlg.close());
+  dlg.addEventListener('click', e => { if (e.target === dlg) dlg.close(); });
+})();
