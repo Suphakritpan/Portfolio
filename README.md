@@ -43,15 +43,36 @@
 
 ```
 frontend/
-  index.html   หน้าเว็บทั้งหมด (HTML, CSS, JavaScript ในไฟล์เดียว)
-  data.js      เนื้อหาโครงการ ชุดภาพของแต่ละส่วน และภาพประกอบ SVG
-  media/       ภาพ (WebP/JPG), โลโก้ และวิดีโอ
+  index.html                 โครงหน้าเว็บ (markup ของทุกส่วน) และ SVG icon sprite
+  css/
+    base.css                 design tokens ธีมสว่าง/มืด, reset, องค์ประกอบพื้นฐาน, keyframes
+    layout.css               กรอบแบบ, title block, แถบสารบัญ, sheet, footer, ลำดับ animation ตอนโหลด
+    sections.css             เกี่ยวกับผม, การ์ดผลงาน (bento), รางวัล, ภาวะผู้นำ, ประสบการณ์, ทักษะ
+    components.css           แกลเลอรี, หน้ารายละเอียดผลงาน, lightbox, FAB, toast
+  js/
+    main.js                  จุดเริ่ม: ผูกข้อมูลเข้ากับ component (ต้องโหลดเป็นไฟล์สุดท้าย)
+    lib/dom.js               helper ที่ใช้ร่วมกัน (escape, icon, คัดลอกข้อความ, ค่าคงที่)
+    data/projects.js         เนื้อหาโครงการ: ปัญหา สิ่งที่ทำ เทคโนโลยี ภาพ ลิงก์
+    data/media-sets.js       ชุดภาพของแกลเลอรีแต่ละส่วน
+    data/illustrations.js    ภาพประกอบ SVG (แผนภาพสถาปัตยกรรม, flow)
+    components/
+      gallery.js             แกลเลอรีเลื่อนอัตโนมัติ และภาพปกการ์ดที่เปลี่ยนเอง
+      project-cards.js       การ์ดผลงานใน bento grid
+      project-detail.js      dialog รายละเอียดผลงาน
+      lightbox.js            ดูภาพขนาดเต็ม
+      contact.js             ปุ่มคัดลอกช่องทางติดต่อ และ FAB
+      page-chrome.js         ไฮไลต์สารบัญตามส่วนที่เห็น, ปุ่มกลับขึ้นบน, ตัวบอกพิกัดเคอร์เซอร์
+  media/                     ภาพ (WebP/JPG), โลโก้ และวิดีโอ
 docs/
-  screenshots-index.md   รายการภาพ ที่มา และสถานะการใช้งาน
-  SKILLS.md              หลักฐานทักษะจากแต่ละ repo
+  screenshots-index.md       รายการภาพ ที่มา และสถานะการใช้งาน
+  SKILLS.md                  หลักฐานทักษะจากแต่ละ repo
 ```
 
-เป็นเว็บ static ล้วน ไม่มี build step และไม่มี dependency จุดเด่นทางเทคนิค:
+**ลำดับการโหลด:** ไฟล์ใน `js/` เป็น script ธรรมดาที่แชร์ตัวแปรร่วมกัน จึงต้องเรียงใน `index.html` ให้ dom → data → components → main ถ้าเพิ่มไฟล์ใหม่ให้ใส่ `<script defer>` ตามลำดับนั้น
+
+**แก้เนื้อหา:** แก้ใน `js/data/` อย่างเดียว ไม่ต้องแตะ component เช่น เพิ่มโครงการใหม่ให้เพิ่ม object ใน `P` ที่ `projects.js` แล้วการ์ด หน้ารายละเอียด และลิงก์ `#p08` จะสร้างให้เอง
+
+เป็นเว็บ static ล้วน ใช้ script ธรรมดา โหลดตามลำดับใน `index.html` ไม่มี build step และไม่มี dependency จุดเด่นทางเทคนิค:
 
 - **แกลเลอรีภาพ:** เลื่อนเองทุก 5 วินาที หยุดเมื่อวางเมาส์ เลื่อนออกนอกจอ หรือสลับแท็บ ใช้ได้ทั้งปุ่ม คีย์บอร์ด และปัดนิ้ว มีโหมดเต็มจอ
 - **ธีมสว่าง/มืด:** ธีมสว่างเป็นกระดาษเขียนแบบ ธีมมืดเป็น blueprint เปลี่ยนตามการตั้งค่าของเครื่อง
@@ -67,7 +88,7 @@ cd Portfolio/frontend
 python -m http.server 8000   # แล้วเปิด http://localhost:8000
 ```
 
-จะดับเบิลคลิกเปิด `index.html` ก็ได้ แต่บางเบราว์เซอร์ไม่ยอมให้ปุ่มคัดลอกทำงานถ้าเปิดแบบ `file://` จึงแนะนำให้รันผ่าน local server
+ดับเบิลคลิกเปิด `frontend/index.html` ก็ใช้ได้เช่นกัน
 
 ## Deploy
 
